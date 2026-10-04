@@ -1,0 +1,78 @@
+VERIFYING THE RECOVERY-DUALITY CERTIFICATE
+
+Two different checks
+--------------------
+python3 verify_packet.py checks the files against the recorded successful
+build, the expected negative-control failure and the axiom audit. It is
+a lightweight consistency check, not a proof checker or a fresh Lean run.
+The report and its hashes are evidence from the author; independent
+verification requires compiling the supplied Lean sources yourself.
+
+Pinned versions
+---------------
+Lean:    4.34.0
+mathlib: 5ed2965256430c3649e86755f9576b54eca72435
+
+The 15 source files in lean/ are byte-for-byte copies of the Azure build
+inputs: 13 positive modules and two separate negative controls. They have
+not been modified to make this packet. The recorded build and axiom
+outputs are under evidence/. verification-code-azure.json records the
+scope, hashes, compiler command, negative control and completed cleanup.
+
+Rebuilding on an Azure Linux worker
+----------------------------------
+This workspace requires all substantial Lean work to run in Azure.
+The original job used a 12 GiB process-group memory limit, a maximum
+35-minute worker lifetime, 90-second module limits and an independent
+Azure deletion guard armed before compute creation. Use an equivalently
+bounded worker with independent cleanup; collect the outputs and confirm
+resource deletion. Do not interpret a timeout or interruption as success.
+
+The following commands describe the compiler environment inside that
+already provisioned worker. They do not provision, bound or clean up
+Azure resources. They have not been rerun while preparing this packet.
+
+Install Lean 4.34.0 so that lean and lake from that release are on PATH.
+Check lean --version before proceeding. From a fresh work directory:
+
+  git init mathlib
+  git -C mathlib remote add origin https://github.com/leanprover-community/mathlib4.git
+  git -C mathlib fetch --depth 1 origin 5ed2965256430c3649e86755f9576b54eca72435
+  git -C mathlib checkout --detach FETCH_HEAD
+
+Copy the packet's lean/*.lean files into this mathlib directory. Then,
+inside that directory, obtain the pinned dependencies' binary cache:
+
+  lake exe cache get Mathlib.lean
+
+Compile each positive module in this order:
+
+  Sampling Words Occupancy TailFormula Pairing MatroidDual Result Audit
+  CodeLinear CodeGenerator CodeResult CodeProbability CodeAudit
+
+For each module MODULE, use the original compiler invocation with an
+outer 90-second timeout and the worker-wide resource limits above:
+
+  LEAN_PATH="$PWD" lake env lean -j1 -M6000 -DwarningAsError=true -DElab.async=false -o MODULE.olean MODULE.lean
+
+Every positive module must exit successfully. Inspect Audit and CodeAudit
+output. The code audit covers eleven declarations, including the actual
+orthogonal dual, both recovery characterizations, the generator bridge,
+complementary recovery, convergent expectation, the main duality theorem,
+balance equivalence, self-dual means and the exact-word interpretation.
+Their axiom dependencies must be limited to propext, Classical.choice
+and Quot.sound.
+
+Run CodeNegativeControl separately, using the same compiler flags.
+It must fail specifically because True.intro has type True rather than
+False. A missing import, failed download or timeout is not a successful
+negative control. Neither negative-control source belongs in the positive
+build. NegativeControl is the preserved earlier matroid-stage control.
+
+Trust boundary
+--------------
+The certificate trusts the standard Lean kernel and the pinned upstream
+mathlib cache. A source-token scan and a rejected false proof supplement
+that check; they are not substitutes for kernel checking and do not show
+that the compiler has no possible bugs. No independent kernel audit has
+been performed for this result.

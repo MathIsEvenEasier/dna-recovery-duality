@@ -1,0 +1,186 @@
+{
+  "date": "2026-10-04",
+  "attribution": "OpenAI Codex (GPT-6 Astra)",
+  "status": "PASS: arbitrary linear codes, orthogonal duality, generator-column span bridge and exact-word tail-sum model",
+  "scope": {
+    "theorem": "For every field K, finite nonempty coordinate type and subspace C of its coordinate vectors, codeExpectedReads C i + codeExpectedReads (codeDual C) i equals the coordinate count.",
+    "sampling": "Expected reads are defined as the sum over t >= 0 of failure counts among all n^t ordered words divided by n^t; repeated draws are counted.",
+    "convergence": "Proved in Lean, not an assumption.",
+    "balance_equivalence": true,
+    "all_finite_sizes": true,
+    "time_zero_zero_coordinates": true,
+    "orthogonal_dual_membership_checked": true,
+    "recoverability_agreement_characterization_checked": true,
+    "linear_decoder_characterization_checked": true,
+    "generator_column_span_bridge_checked": true,
+    "direct_code_complementarity_checked": true,
+    "exact_failure_word_counts_checked": true,
+    "matroid_representation_bridge_required": false,
+    "infinite_probability_space_and_hitting_variable_formalized": false,
+    "linear_code_certificate_in_exact_word_tail_sum_model": true,
+    "alternative_one_read_zero_convention_formalized": false,
+    "shapley_corollaries_formalized": false
+  },
+  "pins": {
+    "lean": "4.34.0",
+    "mathlib": "5ed2965256430c3649e86755f9576b54eca72435"
+  },
+  "build_request": "b56f55ad6a7647b28a12640985f8d66e",
+  "modules": [
+    "Sampling",
+    "Words",
+    "Occupancy",
+    "TailFormula",
+    "Pairing",
+    "MatroidDual",
+    "Result",
+    "Audit",
+    "CodeLinear",
+    "CodeGenerator",
+    "CodeResult",
+    "CodeProbability",
+    "CodeAudit"
+  ],
+  "command_per_module": "lake env lean -j1 -M6000 -DwarningAsError=true -DElab.async=false -o MODULE.olean MODULE.lean",
+  "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "axioms_by_theorem": {
+    "mem_codeDual": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "codeRecovers_iff_agreement": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "codeRecovers_iff_decoder": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "generatedCode_recovers_iff_span": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "code_complementary_recovery": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "codeExpectedReads_hasSum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "codeExpectedReads_dual": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "codeRecoveryBalanced_dual_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "self_dual_codeExpectedReads": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "code_word_failure_probability": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "codeExpectedReads_eq_count_series": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "audited_theorems": [
+    "DNA.mem_codeDual",
+    "DNA.codeRecovers_iff_agreement",
+    "DNA.codeRecovers_iff_decoder",
+    "DNA.generatedCode_recovers_iff_span",
+    "DNA.code_complementary_recovery",
+    "DNA.codeExpectedReads_hasSum",
+    "DNA.codeExpectedReads_dual",
+    "DNA.codeRecoveryBalanced_dual_iff",
+    "DNA.self_dual_codeExpectedReads",
+    "DNA.code_word_failure_probability",
+    "DNA.codeExpectedReads_eq_count_series"
+  ],
+  "source_token_screen_passed": true,
+  "negative_control": {
+    "request": "a9dce72079bf4c58908a7d5de827110b",
+    "rejected": true,
+    "reason": "True.intro cannot prove False"
+  },
+  "source_sha256": {
+    "CodeNegativeControl.lean": "c16a84b163ce0fd1b8e0f5c91f4fd962afd8e5e4b177c676956328dcc9b50e4b",
+    "CodeLinear.lean": "dd70b8888a290f65340f2836f4d58e8007f837980270e9e2a25d612ef8d5ab73",
+    "Sampling.lean": "1fe2f31a6979943423511092eff8ce9a410b5ad6477c8112707d2906c51b26c8",
+    "CodeAudit.lean": "42b7dde2e6c1022b10216521dbbdd47c27c69371816fc154028f3ca07df00b4b",
+    "Words.lean": "e9e225514a2b3e496e942a268311649f65145c38d90c6e47d54dc8a7597d553e",
+    "CodeProbability.lean": "3dfbb313865e1e7296ae67fa96aef730bae6db07378126fd3ec3588a867c189e",
+    "Audit.lean": "9bb7d9dabcec8b8dd09baaa25b392e861bd623dc01feee1cd619606fac8c35aa",
+    "Result.lean": "a6b3c654d36fc47e82b0f1fc8138fcaadbb97bf1a3489591f8b9afd73c27ba65",
+    "CodeGenerator.lean": "00e311594045d58e582c1525732408ec947e6b78c4128e659136316ab9d41b4a",
+    "MatroidDual.lean": "2e5c36ec77781c1d959e81328c361c69568183a1ebf7c4eb55aaceed005f9c75",
+    "Occupancy.lean": "7258cd12e6fbffa17c02c7cf59b01e150d5a937146b4bf9a287780d282f8d7a2",
+    "Pairing.lean": "9bb036e714257df7ff28b7dd5a9a4dc4fbbf4d7fdd908f07cf933ef2f5623e7e",
+    "TailFormula.lean": "787dce7a2d55cb452094bbb4a1bb601b3f526ea73afcaccbd0092e041dea46dd",
+    "CodeResult.lean": "72d611cf5db63bd2679fefa830a831fb71bcc8975e0f523202bf3ff810435a02",
+    "NegativeControl.lean": "ed06b6188c330ab049580b7118aea38ce3e490cb636932f3c787b5055227ed54"
+  },
+  "olean_sha256": {
+    "Sampling.olean": "a632be875d29decd5119d02aaa167fcaeb75fd112ccaed85261feb5e8cd21e4a",
+    "Words.olean": "338fbb09df84bd0103404c2119040a6dd979c146657580674c9f99ab60f58273",
+    "Occupancy.olean": "1af6477bb10305de980bd33e8cb6895e70bbef96e7fdba21652d98151c28dacf",
+    "TailFormula.olean": "b013fd785782f3a416b1351f9b5570eba36a3e92e1a0064437d57745f608dd75",
+    "Pairing.olean": "03351f2b82a9150a498638ffb353965ad8eb24b6ec5fb3e2a6f3b903f2c09123",
+    "MatroidDual.olean": "e2e014a29b1d18fd51ef81261f94f3d60068889488b592d33460b06b3739d856",
+    "Result.olean": "90aea5b170c6fc8ff01d428b8bdcb082c351509594efbd8439dd7a76b5cd5c3c",
+    "Audit.olean": "8b863e9bad5b3e164013dcd714b4bf74f3ca6599c8436fbea93bdf2db85a8119",
+    "CodeLinear.olean": "2348fa23a3373e4c8f596a753aa19748b1cadc77d18e10634e0cac7d181f88f3",
+    "CodeGenerator.olean": "ec79e61f3e6749600c3f4fb585cf4ffa11574e979c03b1b2f127857de333cc82",
+    "CodeResult.olean": "5e57130f9f37dd7eb572acbe98f3548b339174a77a6e8673ddff4515d18635e2",
+    "CodeProbability.olean": "6d3a7fdf0d58766551c6ba4499d41a0e03c5b7d6d811f58ff66eba4c67285f85",
+    "CodeAudit.olean": "24544fdc1c472c40a4f4541ae9bbaaceb28f40476bf862ef757ad47a41ded93f"
+  },
+  "azure": {
+    "job_id": "83cb03dc071a4251",
+    "worker_started_at": "2026-10-04T07:56:24Z",
+    "worker_finished_at": "2026-10-04T08:11:46Z",
+    "worker_exit_code": 0,
+    "worker_memory_limit_gib": 12,
+    "worker_time_limit_minutes": 35,
+    "per_module_timeout_seconds": 90,
+    "independent_deletion_guard": "Azure Logic App, armed before compute creation",
+    "guard_deadline": "2026-10-04T08:39:55Z",
+    "result_archive_sha256": "1cf3a58550cd04b35279f389b8a18f660aa4603e5acaf02a89e2c7a3eccdcc43",
+    "results_downloaded": true,
+    "cleanup": {
+      "checked_at": "2026-10-04T08:16:51Z",
+      "group_exists": {
+        "compute": false,
+        "control": false
+      },
+      "resource_ids": [],
+      "all_deleted": true
+    }
+  },
+  "trust_limits": [
+    "Standard Lean kernel and upstream pinned mathlib binary cache; not an independent kernel implementation audit.",
+    "This script checks downloaded evidence and hashes; it does not re-run Lean.",
+    "The source-token screen supplements, rather than replaces, the compiler and axiom audit.",
+    "No external peer review, publication or priority claim."
+  ]
+}

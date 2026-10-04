@@ -1,0 +1,33 @@
+{
+  "description": "Public repository files; hashes check integrity, not theorem truth.",
+  "files": {
+    ".gitignore": "6d3a3fc3e6a1a85b78aafe9f0db21b53cde33f8326bf67ca45f9d4519a8caa0f",
+    "README.rst": "be929dd435023cdfddcf7b0798b8a453012ab9324692cdd41d4e12b021d2898c",
+    "REPRODUCE.txt": "e0e803b359457c828183a212aacb38371a60f80f67a69736b3d47bfda588b69c",
+    "docs/.nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/index.html": "7e88cd3d5cb630dad605a1b49856d43be4b706afd9e864ac9aed76a0d0b92fca",
+    "evidence/axioms.txt": "85cc8013333c08abdf6bf0bab90874b14cd7247fabb28f15786f36ab37623d1f",
+    "evidence/build.json": "b4ff47267126eaf3be966ec4c97391e3fdf0a0dddcd8626106d8ea0b06140802",
+    "evidence/negative-control.json": "b94bd153102cd9c7bfc916d92790ce3b507136c1f04c5ca641ef8a060e65b04a",
+    "lean/Audit.lean": "9bb7d9dabcec8b8dd09baaa25b392e861bd623dc01feee1cd619606fac8c35aa",
+    "lean/CodeAudit.lean": "42b7dde2e6c1022b10216521dbbdd47c27c69371816fc154028f3ca07df00b4b",
+    "lean/CodeGenerator.lean": "00e311594045d58e582c1525732408ec947e6b78c4128e659136316ab9d41b4a",
+    "lean/CodeLinear.lean": "dd70b8888a290f65340f2836f4d58e8007f837980270e9e2a25d612ef8d5ab73",
+    "lean/CodeNegativeControl.lean": "c16a84b163ce0fd1b8e0f5c91f4fd962afd8e5e4b177c676956328dcc9b50e4b",
+    "lean/CodeProbability.lean": "3dfbb313865e1e7296ae67fa96aef730bae6db07378126fd3ec3588a867c189e",
+    "lean/CodeResult.lean": "72d611cf5db63bd2679fefa830a831fb71bcc8975e0f523202bf3ff810435a02",
+    "lean/MatroidDual.lean": "2e5c36ec77781c1d959e81328c361c69568183a1ebf7c4eb55aaceed005f9c75",
+    "lean/NegativeControl.lean": "ed06b6188c330ab049580b7118aea38ce3e490cb636932f3c787b5055227ed54",
+    "lean/Occupancy.lean": "7258cd12e6fbffa17c02c7cf59b01e150d5a937146b4bf9a287780d282f8d7a2",
+    "lean/Pairing.lean": "9bb036e714257df7ff28b7dd5a9a4dc4fbbf4d7fdd908f07cf933ef2f5623e7e",
+    "lean/Result.lean": "a6b3c654d36fc47e82b0f1fc8138fcaadbb97bf1a3489591f8b9afd73c27ba65",
+    "lean/Sampling.lean": "1fe2f31a6979943423511092eff8ce9a410b5ad6477c8112707d2906c51b26c8",
+    "lean/TailFormula.lean": "787dce7a2d55cb452094bbb4a1bb601b3f526ea73afcaccbd0092e041dea46dd",
+    "lean/Words.lean": "e9e225514a2b3e496e942a268311649f65145c38d90c6e47d54dc8a7597d553e",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "pins.json": "32d95e8ecbc5236c688c682346ee36faaee386b5645ac15ba471d0487044ac62",
+    "recovery-duality.tex": "0dcf96f9c87fbc53e5f868b89e0c34d998f6006aaa593734ceb298e9304bd17e",
+    "verification-code-azure.json": "094673ab4031ba932c2e9a4af2e6bb4dea576da711bcda38909764b122c58a79",
+    "verify_packet.py": "3e381f8db49717faf28e23d9a83cae9d24fcd1cbff2a6a3873342b0e97795332"
+  }
+}

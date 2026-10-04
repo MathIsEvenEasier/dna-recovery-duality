@@ -1,0 +1,585 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\F}{\mathbb F}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\rk}{\operatorname{rank}}
+\newcommand{\spn}{\operatorname{span}}
+\newcommand{\ind}{\mathbf 1}
+\title{Coordinatewise duality for random-access recovery times}
+\author{MathIsEvenEasier\\\small Prepared with OpenAI Codex (GPT-6 Astra)}
+\date{October 4, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For a linear code of length $n$, let $a_i$ be the expected number of independent,
+uniform reads with replacement needed to recover encoded coordinate $i$.
+We give a self-contained proof that the corresponding expectation for the
+orthogonal dual code is $n-a_i$. In particular, recovery balance is preserved
+by duality, answering Conjecture~1 of Gruica, Bar-Lev, Ravagnani and Yaakobi
+under the stated sampling model. The proof also identifies $a_i/n$ with the
+probability that column $i$ enters a greedy basis under a uniform random
+ordering, equivalently the Shapley value of the column-rank function.
+We also show that $a_i/n$ is the area under the coordinate's erasure-channel
+EXIT function, relating the result to classical EXIT duality.
+\end{abstract}
+\noindent\textbf{Status.} A Lean certificate verifies coordinatewise duality
+and recovery-balance equivalence directly for arbitrary linear codes, using
+the convergent tail sum of exact uniform read-word probabilities. It also
+checks that the recovery definition agrees with the generator-column span
+criterion. Zero coordinates are recovered at time zero. There has been no
+external peer review. The proof uses established linear algebra and
+sampling identities; its connection to classical EXIT duality is explained
+and attributed below.
+
+\section{The model and the result}
+Let $E=\{1,\ldots,n\}$, where $n\geq1$, and let $C\leq\F_q^n$ be a linear
+code of dimension $k$, allowing $0\leq k\leq n$. Its dual is
+\[
+ C^\perp=\{y\in\F_q^n:\textstyle\sum_{j=1}^n x_jy_j=0
+               \text{ for every }x\in C\}.
+\]
+Choose a generator matrix $G$ with columns $g_1,\ldots,g_n$.
+For $S\subseteq E$, write $r_C(S)=\dim\spn\{g_j:j\in S\}$.
+This is also the dimension of the projection of $C$ onto $S$, so it does not
+depend on the generator matrix.
+
+Let $X_1,X_2,\ldots$ be independent, uniform indices in $E$. Define
+\[
+ T_i(C)=\min\{t\geq0:g_i\in\spn(g_{X_1},\ldots,g_{X_t})\},
+ \qquad a_i(C)=\E T_i(C).
+\]
+We use $\spn(\varnothing)=\{0\}$. Thus a coordinate that is identically zero
+is known before any read and has recovery time zero. Equal columns retain
+their distinct coordinate indices. The time to read index $i$ itself has
+mean $n$ and bounds $T_i(C)$ from above, so all expectations are finite.
+
+These are the \emph{encoded-coordinate} recovery times denoted
+$\widetilde\tau_i$ in \cite{GBRY}. For a systematic generator they include the
+information-coordinate times on the systematic positions. Recovery balance
+means that $a_i(C)$ is independent of $i$.
+
+\begin{theorem}[Coordinatewise duality]\label{thm:main}
+For every $C\leq\F_q^n$ and every $i\in E$,
+\begin{equation}\label{eq:main}
+                 a_i(C)+a_i(C^\perp)=n.
+\end{equation}
+Consequently, $C$ is recovery balanced if and only if $C^\perp$ is recovery
+balanced.
+\end{theorem}
+
+\section{A finite formula for an infinite sampling process}
+For $S\subseteq E\setminus\{i\}$, set
+\[
+ d_C(i,S)=r_C(S\cup\{i\})-r_C(S).
+\]
+Adding one column increases rank by either zero or one. In particular,
+$d_C(i,S)=1$ exactly when $S$ does not yet recover coordinate $i$.
+
+\begin{lemma}[The sampling identity]\label{lem:sampling}
+For every coordinate $i$,
+\begin{equation}\label{eq:sampling}
+ a_i(C)=\sum_{S\subseteq E\setminus\{i\}}
+              \frac{d_C(i,S)}{\binom{n-1}{|S|}}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Continue drawing indices even after coordinate $i$ is recovered.
+Let $D_s$ be the time at which $s$ distinct indices have first been seen,
+with $D_0=0$, and let $S_s$ be this set of indices. For $0\leq s<n$, put
+$W_s=D_{s+1}-D_s$. All $D_s$ are finite almost surely.
+
+Between $D_s$ and the next new index the span does not change. Therefore,
+pathwise,
+\begin{equation}\label{eq:path}
+ T_i(C)=\sum_{s=0}^{n-1}
+       \ind_{\{g_i\notin\spn(g_j:j\in S_s)\}}W_s.
+\end{equation}
+Conditional on the entire history through $D_s$, the waiting time $W_s$ is
+geometric with success probability $(n-s)/n$, hence conditional mean
+$n/(n-s)$. This conditional-mean statement is sufficient; independence
+between the indicator and the waiting time is not being assumed.
+
+By symmetry $S_s$ is uniform among all $s$-subsets of $E$.
+Let $b_i(s)$ count those $s$-subsets that do not recover $i$.
+Such subsets cannot contain $i$. Taking expectations in \eqref{eq:path}
+gives
+\[
+ a_i(C)=\sum_{s=0}^{n-1}\frac{n}{n-s}
+                    \frac{b_i(s)}{\binom ns}
+        =\sum_{s=0}^{n-1}\frac{b_i(s)}{\binom{n-1}s}.
+\]
+The last equality uses
+$(n-s)\binom ns=n\binom{n-1}s$. Expanding $b_i(s)$ as the sum of the rank
+increments proves \eqref{eq:sampling}. The factor $n/(n-s)$ is what accounts
+for repeated reads.
+\end{proof}
+
+\section{Complementary recovery sets in the dual}
+\begin{lemma}[Dual ranks]\label{lem:rank}
+For every $A\subseteq E$,
+\begin{equation}\label{eq:rank}
+ r_{C^\perp}(A)=|A|-k+r_C(E\setminus A).
+\end{equation}
+If $S\subseteq E\setminus\{i\}$ and
+$U=E\setminus(S\cup\{i\})$, then
+\begin{equation}\label{eq:increment}
+                   d_{C^\perp}(i,U)=1-d_C(i,S).
+\end{equation}
+\end{lemma}
+\begin{proof}
+For any $B\subseteq E$, the vectors in $C^\perp$ supported on $B$ correspond
+to the orthogonal complement of the projection of $C$ onto $B$, inside
+$\F_q^B$. Their dimension is $|B|-r_C(B)$.
+The kernel of projection from $C^\perp$ onto $A$ consists exactly of the
+vectors supported on $E\setminus A$. Rank-nullity, and
+$\dim C^\perp=n-k$, therefore give
+\[
+ r_{C^\perp}(A)=(n-k)
+                 -\bigl(n-|A|-r_C(E\setminus A)\bigr),
+\]
+which proves \eqref{eq:rank}. Apply it at $U\cup\{i\}$ and $U$ and subtract:
+\begin{align*}
+ d_{C^\perp}(i,U)
+ &=\bigl(|U|+1-k+r_C(S)\bigr)
+       -\bigl(|U|-k+r_C(S\cup\{i\})\bigr)\\
+ &=1-d_C(i,S).
+\end{align*}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+The map $S\mapsto E\setminus(S\cup\{i\})$ is a bijection of the subsets
+of $E\setminus\{i\}$, sending size $s$ to $n-1-s$. The denominator in
+\eqref{eq:sampling} is unchanged under this map. Consequently,
+\begin{align*}
+ a_i(C)+a_i(C^\perp)
+ &=\sum_{S\subseteq E\setminus\{i\}}
+       \frac{d_C(i,S)+d_{C^\perp}(i,E\setminus(S\cup\{i\}))}
+            {\binom{n-1}{|S|}}\\
+ &=\sum_{s=0}^{n-1}\frac{\binom{n-1}s}{\binom{n-1}s}=n.
+\end{align*}
+Thus $a_i(C^\perp)=n-a_i(C)$ for every $i$. One profile is constant exactly
+when the other is constant, which is Conjecture~1 of \cite{GBRY}.
+\end{proof}
+
+\section{The connection with classical EXIT duality}\label{sec:exit}
+Fix $i$ and retain each coordinate other than $i$, independently, with
+probability $1-\varepsilon$. Let $S_\varepsilon$ be the retained set and put
+\begin{equation}\label{eq:exit}
+ h_{C,i}(\varepsilon)
+ =\Prob\{S_\varepsilon\text{ does not recover }i\}
+ =\sum_{S\subseteq E\setminus\{i\}}
+ d_C(i,S)(1-\varepsilon)^{|S|}\varepsilon^{n-1-|S|}.
+\end{equation}
+This polynomial is defined on $[0,1]$, including its endpoints. The target
+coordinate itself is always withheld in this experiment.
+
+For a uniform random codeword $Z\in C$, send the other coordinates through
+independent erasure channels with erasure probability $\varepsilon$ and
+call the output $Y_{-i}$. With entropy measured in base $q$,
+\[
+                 h_{C,i}(\varepsilon)=H_q(Z_i\mid Y_{-i}).
+\]
+Indeed, after any fixed observation the possible codewords form an affine
+coset of the subspace vanishing on the observed coordinates. Its projection
+onto coordinate $i$ is either a singleton or all of $\F_q$, uniformly
+distributed. The corresponding conditional entropy is respectively zero
+or one. This also covers identically zero coordinates. For binary codes
+this is the usual entropy convention for the coordinate EXIT function;
+mutual-information conventions require the corresponding change of variables.
+
+\begin{corollary}[Recovery time as an EXIT area]\label{cor:exit}
+For every coordinate,
+\begin{equation}\label{eq:exit-area}
+             \frac{a_i(C)}{n}=\int_0^1 h_{C,i}(\varepsilon)\,d\varepsilon.
+\end{equation}
+Moreover,
+\begin{equation}\label{eq:exit-dual}
+             h_{C,i}(\varepsilon)+h_{C^\perp,i}(1-\varepsilon)=1.
+\end{equation}
+Thus integrating the second identity proves Theorem~\ref{thm:main}.
+\end{corollary}
+\begin{proof}
+For $0\leq s\leq n-1$, elementary beta integration gives
+\[
+ \int_0^1(1-\varepsilon)^s\varepsilon^{n-1-s}\,d\varepsilon
+ =\frac{s!(n-1-s)!}{n!}=\frac{1}{n\binom{n-1}s}.
+\]
+Integrate the finite sum in \eqref{eq:exit} and apply
+Lemma~\ref{lem:sampling}. For the second identity, pair each observed set
+$S$ with $U=E\setminus(S\cup\{i\})$. At erasure parameter
+$1-\varepsilon$, the probability of observing $U$ equals the probability
+of observing $S$ at parameter $\varepsilon$. Their failure indicators add
+to one by \eqref{eq:increment}. The probabilities of all $S$ sum to one,
+proving \eqref{eq:exit-dual}. A change of variable in the dual integral
+then gives $a_i(C)/n+a_i(C^\perp)/n=1$.
+\end{proof}
+
+\paragraph{Attribution.}
+Erasure-channel EXIT duality predates this note: Ashikhmin, Kramer and
+ten Brink prove a duality property in \cite[Section IV-E, Theorem 4]{AKB}.
+Renes gives a broader channel-duality framework in
+\cite[Section 4.5, Theorem 4 and its coordinatewise proof]{Renes}.
+Equation~\eqref{eq:exit-dual} is this classical phenomenon in our failure
+probability notation, and is not claimed as a new duality theorem.
+Equation~\eqref{eq:exit-area} explicitly connects it to the uniform-read
+model of the recovery-balance conjecture. Together with
+\eqref{eq:greedy}, it identifies three quantities:
+\[
+ \frac{a_i(C)}n
+   =\int_0^1 h_{C,i}(\varepsilon)\,d\varepsilon
+   =\phi_i(r_C).
+\]
+In particular, recovery balance means equality of the coordinate EXIT
+areas. It does not require equality of the entire EXIT functions.
+This section is a written derivation; EXIT functions and integration have
+not been added to the Lean certificate.
+
+\section{A permutation interpretation and consequences}
+Choose a uniformly random permutation $\pi$ of $E$. Process its columns in
+order, retaining a column precisely when it increases the rank of the
+retained columns. Let $B_\pi(C)$ be the resulting basis and let $P_i(\pi)$
+be the indices preceding $i$ in the permutation.
+
+\begin{corollary}[Greedy inclusion probability]\label{cor:greedy}
+For every $i$,
+\begin{equation}\label{eq:greedy}
+ a_i(C)=n\Prob\{i\in B_\pi(C)\}
+       =n\,\phi_i(r_C),
+\end{equation}
+where $\phi_i(r_C)$ is the Shapley value of the rank set function.
+In particular,
+\begin{equation}\label{eq:sum}
+                     \sum_{i=1}^n a_i(C)=nk.
+\end{equation}
+\end{corollary}
+\begin{proof}
+For each fixed $S\subseteq E\setminus\{i\}$ there are
+$|S|!(n-1-|S|)!$ permutations with $P_i(\pi)=S$. Hence
+\[
+ \Prob\{P_i(\pi)=S\}=\frac1{n\binom{n-1}{|S|}}.
+\]
+The retained columns span all previously processed columns, so $i$ is
+retained exactly when $d_C(i,P_i(\pi))=1$. Equation~\eqref{eq:sampling}
+proves the first equality in \eqref{eq:greedy}. The second is the usual
+average-marginal-contribution definition of the Shapley value \cite{Shapley}.
+Every $B_\pi(C)$ has exactly $k$ elements. Summing its inclusion
+probabilities proves \eqref{eq:sum}, also obtained in \cite{GBRY}.
+\end{proof}
+
+This gives a finite way to compute or estimate an entire recovery profile:
+average the greedy inclusion indicators and multiply by $n$.
+Each permutation requires at most $n$ rank-update decisions and has no
+unbounded waiting for repeated reads. The induced distribution on bases
+need not be uniform. With independent sampled permutations this gives an
+unbiased estimator; no empirical speed or accuracy benchmark is claimed here.
+There is also an exact pairing:
+\[
+ B_{\operatorname{reverse}(\pi)}(C^\perp)=E\setminus B_\pi(C).
+\]
+Indeed, the predecessor set of $i$ in the reversed order is the complement
+of $P_i(\pi)\cup\{i\}$, so \eqref{eq:increment} makes the two inclusion
+indicators complementary.
+
+\begin{corollary}[Recovery profiles]\label{cor:profiles}
+The mean of the coordinate expectations is $k$ for $C$ and $n-k$ for
+$C^\perp$, and
+\[
+ a_i(C^\perp)-(n-k)=-\bigl(a_i(C)-k\bigr).
+\]
+In particular,
+\[
+ \max_i a_i(C^\perp)=n-\min_i a_i(C),\qquad
+ a_i(C)<a_j(C)\iff a_i(C^\perp)>a_j(C^\perp).
+\]
+The two profiles have the same range and the same variance across
+coordinates. If $C=C^\perp$ on the same coordinate set, every coordinate
+has expectation $n/2$.
+\end{corollary}
+\begin{proof}
+Use \eqref{eq:main} and \eqref{eq:sum}. Centering subtracts $k$ and $n-k$,
+respectively, and negates each deviation; squares and absolute values are
+preserved. If $C=C^\perp$, \eqref{eq:main} becomes $2a_i(C)=n$.
+\end{proof}
+
+\section{An unbalanced example, checked directly}
+Over $\F_2$, consider the generator matrices
+\[
+ G=\begin{pmatrix}1&1&1&0&0\\0&0&0&1&1\end{pmatrix},\qquad
+ H=\begin{pmatrix}1&1&0&0&0\\1&0&1&0&0\\0&0&0&1&1\end{pmatrix}.
+\]
+Their ranks are $2$ and $3$, and $GH^{\mathsf T}=0$, so their row spaces
+are dual codes of length five. All columns of both matrices are nonzero.
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Target coordinates & $a_i(C)$ & $a_i(C^\perp)$ & Sum\\
+\midrule
+$1,2,3$ & $5/3$ & $10/3$ & $5$\\
+$4,5$ & $5/2$ & $5/2$ & $5$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For $G$, recovering any of the first three coordinates requires hitting
+their group, a geometric waiting time of mean $5/3$. The other group gives
+mean $5/2$.
+
+For $H$, target $1$ is recovered by reading index $1$, or by reading both
+indices $2$ and $3$. Indices $4,5$ do not help with it. Inclusion-exclusion
+therefore gives, for every integer $t\geq0$,
+\[
+ \Prob\{T_1(C^\perp)>t\}=2(3/5)^t-(2/5)^t.
+\]
+Summing this tail yields $2/(1-3/5)-1/(1-2/5)=10/3$.
+The same calculation applies to targets $2,3$. Targets $4,5$ are recovered
+when either member of their group appears, giving $5/2$.
+Thus the table is checked without invoking Theorem~\ref{thm:main}.
+The easiest group for $C$ is the hardest group for $C^\perp$.
+The EXIT description gives the same check: for $i=1,2,3$,
+\[
+ h_{C,i}(\varepsilon)=\varepsilon^2,\qquad
+ h_{C^\perp,i}(\varepsilon)=2\varepsilon-\varepsilon^2.
+\]
+The areas are $1/3$ and $2/3$; multiplying by five yields the first row of
+the table. For $i=4,5$ both EXIT functions equal $\varepsilon$, of area
+$1/2$.
+
+\section{Scope and boundary cases}
+\paragraph{Zero coordinates.}
+The sampling lemma includes $S=\varnothing$. For a zero column every rank
+increment is zero, so its expectation is zero. The dual coordinate is a
+coloop: it can only be recovered by reading its own index, giving mean $n$.
+This handles all degenerate cases in Theorem~\ref{thm:main}, including the
+zero code and the full-space code. The displayed formula (4) in
+\cite{GBRY}, with its sum starting at $s=1$, requires an empty-set correction
+under our time-zero convention for a zero target. The source does not
+explicitly settle this boundary convention; our proof states it and derives
+the required formula directly.
+
+If one instead insists on taking at least one read even for a known zero,
+the coordinatewise equation needs that convention's correction, but
+recovery balance is still preserved by duality. Here are the boundary cases.
+A proper nonzero code with a zero column has expectation $1$ there and
+expectation greater than $1$ at any nonzero column: drawing the zero column
+first prevents immediate recovery. Hence it is unbalanced. Its dual has a
+coloop of mean $n$ and, since it is not the full-space code, a noncoloop.
+A nonzero noncoloop has an alternative recovery set, which is read before
+the target with positive probability, so its expectation is strictly below
+$n$; a zero column has expectation $1<n$ here. Thus the dual is unbalanced
+as well. Interchange the two codes if only the dual has a zero column.
+The zero and full-space codes are separately balanced, including $n=1$.
+When neither code has zero columns, the conventions agree.
+
+\paragraph{Uniform reads are essential.}
+Take the binary repetition code $C=\spn\{(1,1,1)\}$ and its parity-check
+dual, and sample indices with probabilities $(1/2,1/4,1/4)$. Any read
+recovers target $1$ in $C$, so its mean is $1$. In $C^\perp$, target $1$
+is recovered by reading index $1$ or both indices $2,3$. For $t\geq1$,
+failure means that all $t$ reads were index $2$, or all were index $3$.
+Therefore its mean is
+\[
+ 1+\sum_{t=1}^\infty 2(1/4)^t=5/3,
+ \qquad 1+5/3=8/3\ne3.
+\]
+The theorem consequently cannot be applied unchanged to nonuniform
+sequencing. It also makes no assertion about read errors, simultaneous
+recovery of all coordinates, or decoding runtime.
+
+\paragraph{Matroid form.}
+The same proof applies to every finite matroid, with recovery defined by
+membership in the closure of the drawn elements. Lemma~\ref{lem:sampling}
+uses only closure and uniform sampling, and \eqref{eq:increment} follows
+from the standard dual-rank formula. Representability over a finite field
+is needed only to interpret the result as a statement about linear codes.
+
+\paragraph{Practical use.}
+Within the uniform error-free model, the theorem transfers a computed
+recovery profile to the dual and reverses the ordering of easy and difficult
+coordinates. The greedy interpretation supplies a bounded-work unbiased
+estimator per permutation. Neither statement by itself designs a better
+physical DNA storage system.
+
+\section{Relation to earlier work}
+Notation~1 and Definition~2 of \cite{GBRY} specify the encoded-coordinate
+sampling model and recovery balance used here. Theorem~\ref{thm:main}
+proves their Conjecture~1 through a coordinatewise identity. Section~\ref{sec:exit}
+explains how classical erasure-channel EXIT duality yields the same result
+once its relation to expected read counts is established.
+
+The duality in \cite[Section 4]{BRY} expresses the time for full recovery
+using subcode data of the dual. Its observable is different from the
+single-coordinate time considered here. Two further related works were
+screened: \cite{Bodur} on expectations and distributions for random access,
+and \cite{WY}, including its August 2026 revision, on algorithms,
+constructions and bounds.
+
+The objective of this note is to resolve the stated conjecture with a
+checkable proof using available mathematics. The earlier results provide
+the tools and context for that resolution. The accompanying Lean certificate
+checks the code theorem in the precise model described next. Literature
+search records are preserved in \texttt{publication-review.json}; establishing
+publication priority is not an objective or a condition for completion.
+
+\section{What Lean has checked}
+The code theorem quantifies over an arbitrary field $K$, a finite nonempty
+coordinate type $E$, and an arbitrary subspace $C\leq K^E$. Thus it applies
+to every finite field and every code length, without restricting the code
+family or enumerating examples. Its formal orthogonal dual satisfies
+\[
+ y\in C^\perp\quad\Longleftrightarrow\quad
+           \sum_{j\in E}x_jy_j=0\quad\text{for every }x\in C.
+\]
+
+\paragraph{Recoverability and generator columns.}
+The formal recovery predicate is
+\[
+ R_C(S,i)\quad\Longleftrightarrow\quad
+ \bigl(\forall x\in C,\ x|_S=0\ \Longrightarrow\ x_i=0\bigr).
+\]
+Lean proves that this is equivalent to any two codewords agreeing on $S$
+also agreeing at $i$. It further proves equivalence with the existence of
+coefficients $\lambda_j$ such that
+\[
+                   x_i=\sum_{j\in S}\lambda_j x_j
+                   \qquad\text{for every }x\in C.
+\]
+For a code generated by columns $g_j$, \texttt{CodeGenerator.lean} proves
+$R_C(S,i)\Longleftrightarrow g_i\in\spn\{g_j:j\in S\}$, exactly the column
+criterion in the sampling model. No full-row-rank assumption is needed for
+this equivalence.
+
+\paragraph{A direct proof of complementary recovery.}
+The formal code proof establishes the following equivalence directly,
+without assuming a code-to-matroid representation theorem. For
+$S\subseteq E\setminus\{i\}$ and $U=E\setminus(S\cup\{i\})$,
+\[
+                        R_{C^\perp}(U,i)\Longleftrightarrow\neg R_C(S,i).
+\]
+If $R_C(S,i)$ holds, use its linear decoder to construct
+\[
+                         y=e_i-\sum_{j\in S}\lambda_j e_j.
+\]
+Then $y\in C^\perp$, $y|_U=0$, and $y_i=1$. This witnesses failure of
+$R_{C^\perp}(U,i)$. Conversely, failure of $R_C(S,i)$ gives $x\in C$ with
+$x|_S=0$ and $x_i\ne0$. For every $y\in C^\perp$ with $y|_U=0$,
+orthogonality reduces to $x_iy_i=0$, hence $y_i=0$. This proves
+$R_{C^\perp}(U,i)$. The existence of the linear decoder, and both directions
+of this argument, are checked in \texttt{CodeLinear.lean}.
+
+\paragraph{Exact sampling and the final theorem.}
+Put $n=|E|$. For each $t\geq0$, Lean identifies the formal failure
+probability with the exact fraction
+\[
+ q_{C,i}(t)=\frac{\bigl|\{w\in E^t:
+           \neg R_C(\{w_1,\ldots,w_t\},i)\}\bigr|}{n^t}.
+\]
+Words are ordered and allow repeated indices; all $n^t$ words receive the
+same weight. The formal expected read count is defined by
+$A_i(C)=\sum_{t=0}^{\infty}q_{C,i}(t)$. Lean proves this series converges,
+proves the finite subset formula, and then proves
+\[
+ A_i(C)+A_i(C^\perp)=n,
+ \qquad
+ \bigl(A_i(C)\text{ is constant in }i\bigr)
+ \Longleftrightarrow
+ \bigl(A_i(C^\perp)\text{ is constant in }i\bigr).
+\]
+The main entry points in \texttt{CodeResult.lean} are
+\texttt{codeExpectedReads\_dual} and
+\texttt{codeRecoveryBalanced\_dual\_iff}.
+\texttt{CodeProbability.lean} checks the failure-count interpretation.
+The earlier sampling modules prove convergence and the subset formula,
+and \texttt{Pairing.lean} pairs complementary subsets.
+The separate general finite-matroid theorem remains available in
+\texttt{Result.lean}.
+
+\paragraph{Verification and trust.}
+All thirteen modules, including both axiom audits, compiled with warnings
+treated as errors. The certificate uses Lean 4.34.0 and mathlib revision
+\texttt{5ed2965256430c3649e86755f9576b54eca72435}.
+The axiom audit reports only \texttt{propext}, \texttt{Classical.choice},
+and \texttt{Quot.sound}. The proof uses no custom axioms, admitted goals,
+\texttt{unsafe} declarations or \texttt{native\_decide}. A deliberately
+ill-typed proof of \texttt{False} was rejected in a separate control run.
+This is a standard Lean kernel check with pinned upstream mathlib cache
+artifacts, not an independent implementation of the kernel. Substantial
+compilations run only in Azure, with a 12 GiB process-group memory cap,
+a maximum 35-minute worker lifetime, 90-second module timeouts and an
+independent cloud deletion guard. The code-certificate job is
+\texttt{83cb03dc071a4251}; its build, axiom audit, negative control, source
+hashes and cleanup evidence are recorded in
+\texttt{formal/verification-code-azure.json}.
+The complete result archive was retrieved and all fifteen source files
+(including the two negative controls) matched the local sources and the
+final build hashes. Deletion of both job resource groups was confirmed at
+08:16 UTC on October 4, 2026.
+The earlier matroid certificate is preserved separately in
+\texttt{formal/verification-azure.json}.
+
+\paragraph{Exact scope of the probability formalization.}
+The certificate uses the explicit convergent finite-word tail sum above,
+which is the standard expression $\E T=\sum_{t\geq0}\Prob(T>t)$ for a
+nonnegative integer-valued recovery time. It does not separately construct
+an infinite product probability space and a hitting-time random variable
+on that space. The written sampling argument supplies the usual stochastic
+interpretation. The Shapley and EXIT interpretations, worked numerical examples and
+alternative convention requiring a read even for a known zero remain
+outside the present Lean certificate. The linear-code duality and
+recovery-to-column-span bridges are now included in the certificate.
+
+\begin{thebibliography}{9}
+\bibitem{GBRY}
+A. Gruica, D. Bar-Lev, A. Ravagnani and E. Yaakobi,
+\emph{A Combinatorial Perspective on Random Access Efficiency for DNA Storage},
+arXiv:2401.15722v3, September 24, 2025.
+\href{https://arxiv.org/html/2401.15722v3}{Full text}.
+\href{https://doi.org/10.1109/TIT.2025.3623202}{IEEE DOI}.
+The target is Conjecture~1 in Section~5.3.
+
+\bibitem{Shapley}
+L. S. Shapley, \emph{A Value for $n$-Person Games},
+in \emph{Contributions to the Theory of Games II},
+Annals of Mathematics Studies 28, Princeton University Press, 1953,
+pp.~307--317. Earlier version: RAND P-295, 1952,
+\url{https://www.rand.org/pubs/papers/P295.html}.
+
+\bibitem{AKB}
+A. Ashikhmin, G. Kramer and S. ten Brink,
+\emph{Extrinsic Information Transfer Functions: Model and Erasure Channel
+Properties}, IEEE Transactions on Information Theory 50(11), 2657--2673,
+2004. \href{https://doi.org/10.1109/TIT.2004.836693}{DOI}.
+
+\bibitem{Renes}
+J. M. Renes, \emph{Duality of channels and codes}, IEEE Transactions on
+Information Theory 64, 577, 2018. arXiv:1701.05583v2, July 10, 2017.
+\href{https://arxiv.org/html/1701.05583v2}{Full text}.
+\href{https://doi.org/10.1109/TIT.2017.2754921}{DOI}.
+
+\bibitem{BRY}
+M. Bertuzzo, A. Ravagnani and E. Yaakobi,
+\emph{The DNA Coverage Depth Problem: Duality, Weight Distributions, and
+Applications}, arXiv:2603.06489v1, March 6, 2026.
+\url{https://arxiv.org/html/2603.06489v1}.
+This related duality result concerns full recovery.
+
+\bibitem{Bodur}
+\c{S}. Bodur, S. Lia, H. H. L\'opez, R. Ludhani, A. Ravagnani and
+L. Seccia, \emph{The Random Variables of the DNA Coverage Depth Problem},
+arXiv:2507.20645v1, July 28, 2025.
+\url{https://arxiv.org/html/2507.20645v1}.
+
+\bibitem{WY}
+C. Wang and E. Yaakobi, \emph{Random Access in DNA Storage: Algorithms,
+Constructions, and Bounds}, arXiv:2601.07053v2, August 12, 2026.
+\url{https://arxiv.org/html/2601.07053v2}.
+\end{thebibliography}
+\end{document}
