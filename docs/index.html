@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Why recovery balance is preserved by duality: three proof steps, full mathematical argument and a Lean certificate.">
+<title>Recovery balance is preserved by duality</title>
+<style>
+:root { color-scheme:light dark; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:light-dark(#232522,#e8ebe5); background:light-dark(#fbfcf9,#171a17); }
+body { max-width:760px; margin:0 auto; padding:32px 24px 48px; line-height:1.65; }
+nav { display:flex; flex-wrap:wrap; gap:8px 24px; padding-bottom:28px; }
+a { color:light-dark(#235d44,#9ad5b6); text-underline-offset:3px; }
+h1 { font-size:clamp(1.6rem,5vw,2.25rem); line-height:1.2; font-weight:600; }
+h2,h3 { font-size:1.1rem; line-height:1.4; font-weight:600; }
+p { margin:12px 0; }
+ol { padding-left:24px; }
+li { margin:28px 0; padding-left:6px; }
+.drp-equation { margin:18px 0; }
+math { font-size:1.15em; }
+.text-small,footer { font-size:.9rem; }
+.text-muted,footer { color:light-dark(#525b52,#b5bfb4); }
+hr { border:0; border-top:1px solid light-dark(#d7ded4,#414a40); margin:28px 0; }
+footer { margin-top:32px; }
+@media(max-width:400px) { body { padding:20px 16px 32px; } math { font-size:1em; } }
+</style>
+</head>
+<body>
+<nav aria-label="Research materials">
+<a href="https://github.com/MathIsEvenEasier/dna-recovery-duality">Repository</a>
+<a href="https://github.com/MathIsEvenEasier/dna-recovery-duality/blob/main/recovery-duality.tex">Full mathematical proof</a>
+<a href="https://github.com/MathIsEvenEasier/dna-recovery-duality/blob/main/lean/CodeResult.lean">Lean certificate</a>
+<a href="https://github.com/MathIsEvenEasier/dna-recovery-duality/blob/main/REPRODUCE.txt">Reproduce the check</a>
+</nav>
+<main>
+<article id="dna-recovery-proof" aria-labelledby="drp-title">
+  <h1 id="drp-title">The proof in three steps</h1>
+  <p>Let <i>C</i> be a linear code with <i>n</i> ≥ 1 coordinates and <i>C</i><sup>⊥</sup> its dual. Read coordinates independently and uniformly, counting repeated reads. Write <i>a</i><sub>i</sub>(<i>C</i>) for the expected number of reads needed to recover coordinate <i>i</i>.</p>
+  <p class="text-small text-muted">A coordinate that is always zero is already known and needs no reads.</p>
+  <ol>
+    <li>
+      <h3>Complementary observations have opposite outcomes</h3>
+      <p>Keep the target <i>i</i> aside. Split the other coordinates into a set <i>S</i> and its complement <i>U</i>. Exactly one of these succeeds: recovering <i>i</i> from <i>S</i> in <i>C</i>, or from <i>U</i> in <i>C</i><sup>⊥</sup>.</p>
+      <p>Let <i>d</i> be 1 when recovery fails and 0 when it succeeds. Linear duality gives:</p>
+      <div class="drp-equation">
+        <math aria-label="d C of i S plus d C dual of i U equals one"><mrow><msub><mi>d</mi><mi>C</mi></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>S</mi><mo>)</mo><mo>+</mo><msub><mi>d</mi><msup><mi>C</mi><mo>⊥</mo></msup></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>U</mi><mo>)</mo><mo>=</mo><mn>1</mn></mrow></math>
+      </div>
+    </li>
+    <li>
+      <h3>Turn random reads into a weighted sum</h3>
+      <p>For 0 ≤ <i>s</i> &lt; <i>n</i>, the first <i>s</i> distinct coordinates form a uniformly random set of that size. The mean wait for the next new coordinate is <i>n</i> / (<i>n</i> − <i>s</i>), including repeated reads. A particular set therefore has weight:</p>
+      <div class="drp-equation">
+        <math aria-label="one over n choose s times n over n minus s equals one over n minus one choose s"><mrow><mfrac><mn>1</mn><mrow><mo>(</mo><mfrac linethickness="0"><mi>n</mi><mi>s</mi></mfrac><mo>)</mo></mrow></mfrac><mo>·</mo><mfrac><mi>n</mi><mrow><mi>n</mi><mo>−</mo><mi>s</mi></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mrow><mo>(</mo><mfrac linethickness="0"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mi>s</mi></mfrac><mo>)</mo></mrow></mfrac></mrow></math>
+      </div>
+      <p>Count that waiting time only while recovery still fails. Sets containing <i>i</i> already recover it, so:</p>
+      <div class="drp-equation">
+        <math aria-label="a i of C equals the sum over coordinate sets S not containing i of d C of i S divided by n minus one choose the size of S"><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>(</mo><mi>C</mi><mo>)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>S</mi><mo>:</mo><mi>i</mi><mo>∉</mo><mi>S</mi></mrow></munder><mfrac><mrow><msub><mi>d</mi><mi>C</mi></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>S</mi><mo>)</mo></mrow><mrow><mo>(</mo><mfrac linethickness="0"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mrow><mo>|</mo><mi>S</mi><mo>|</mo></mrow></mfrac><mo>)</mo></mrow></mfrac></mrow></math>
+      </div>
+    </li>
+    <li>
+      <h3>Pair equal weights and add</h3>
+      <p>Complementary sets have the same weight: choosing <i>s</i> coordinates out of <i>n</i> − 1 gives as many choices as choosing <i>n</i> − 1 − <i>s</i>. Add the two expectations, pairing complementary sets. Step 1 turns each pair of failure indicators into 1.</p>
+      <p>For each size <i>s</i>, the number of sets cancels the denominator of their weight. Their total contribution is 1. There are <i>n</i> sizes, from 0 through <i>n</i> − 1. Therefore:</p>
+      <div class="drp-equation">
+        <math aria-label="a i of C plus a i of C dual equals n"><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>(</mo><mi>C</mi><mo>)</mo><mo>+</mo><msub><mi>a</mi><mi>i</mi></msub><mo>(</mo><msup><mi>C</mi><mo>⊥</mo></msup><mo>)</mo><mo>=</mo><mi>n</mi></mrow></math>
+      </div>
+    </li>
+  </ol>
+  <hr>
+  <p><strong>The conjecture follows:</strong> a code is recovery balanced when all coordinates have the same expected recovery time. Since every dual expectation is <i>n</i> minus the original one, <i>C</i> is recovery balanced if and only if <i>C</i><sup>⊥</sup> is.</p>
+</article>
+
+<section aria-labelledby="source-title">
+<h2 id="source-title">The question being answered</h2>
+<p>Conjecture 1 of Gruica, Bar-Lev, Ravagnani and Yaakobi, <a href="https://arxiv.org/html/2401.15722v3#S5.SS3">A Combinatorial Perspective on Random Access Efficiency for DNA Storage</a>.</p>
+<p>The complete note proves the linear-duality step and the sampling formula, and explains their connection to classical EXIT duality and the Shapley value.</p>
+</section>
+<section aria-labelledby="check-title">
+<h2 id="check-title">Verification</h2>
+<p>The code theorem and exact-word tail-sum model passed Lean 4.34.0 checking in Azure. The certificate uses only the standard axioms propext, Classical.choice and Quot.sound. The formal statement has not received an independent human audit. The repository documents the precise scope and includes the recorded evidence and pinned sources.</p>
+</section>
+</main>
+<footer>
+<p>MathIsEvenEasier · Prepared with OpenAI Codex (GPT-6 Astra).</p>
+<p>Research inspired by @xamualexander, Dr. Samuel Allen Alexander. Still there.</p>
+</footer>
+</body>
+</html>
