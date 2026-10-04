@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Why recovery balance is preserved by duality: three proof steps, full mathematical argument and a Lean certificate.">
+<meta name="description" content="Why recovery balance is preserved by duality: the linear algebra, the sampling argument, and a Lean certificate.">
 <title>Recovery balance is preserved by duality</title>
 <style>
 :root { color-scheme:light dark; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:light-dark(#232522,#e8ebe5); background:light-dark(#fbfcf9,#171a17); }
@@ -15,7 +15,7 @@ h2,h3 { font-size:1.1rem; line-height:1.4; font-weight:600; }
 p { margin:12px 0; }
 ol { padding-left:24px; }
 li { margin:28px 0; padding-left:6px; }
-.drp-equation { margin:18px 0; }
+.drp-equation { margin:18px 0; overflow-x:auto; padding-bottom:4px; }
 math { font-size:1.15em; }
 .text-small,footer { font-size:.9rem; }
 .text-muted,footer { color:light-dark(#525b52,#b5bfb4); }
@@ -33,40 +33,36 @@ footer { margin-top:32px; }
 </nav>
 <main>
 <article id="dna-recovery-proof" aria-labelledby="drp-title">
-  <h1 id="drp-title">The proof in three steps</h1>
-  <p>Let <i>C</i> be a linear code with <i>n</i> ≥ 1 coordinates and <i>C</i><sup>⊥</sup> its dual. Read coordinates independently and uniformly, counting repeated reads. Write <i>a</i><sub>i</sub>(<i>C</i>) for the expected number of reads needed to recover coordinate <i>i</i>.</p>
-  <p class="text-small text-muted">A coordinate that is always zero is already known and needs no reads.</p>
-  <ol>
-    <li>
-      <h3>Complementary observations have opposite outcomes</h3>
-      <p>Keep the target <i>i</i> aside. Split the other coordinates into a set <i>S</i> and its complement <i>U</i>. Exactly one of these succeeds: recovering <i>i</i> from <i>S</i> in <i>C</i>, or from <i>U</i> in <i>C</i><sup>⊥</sup>.</p>
-      <p>Let <i>d</i> be 1 when recovery fails and 0 when it succeeds. Linear duality gives:</p>
-      <div class="drp-equation">
-        <math aria-label="d C of i S plus d C dual of i U equals one"><mrow><msub><mi>d</mi><mi>C</mi></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>S</mi><mo>)</mo><mo>+</mo><msub><mi>d</mi><msup><mi>C</mi><mo>⊥</mo></msup></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>U</mi><mo>)</mo><mo>=</mo><mn>1</mn></mrow></math>
-      </div>
-    </li>
-    <li>
-      <h3>Turn random reads into a weighted sum</h3>
-      <p>For 0 ≤ <i>s</i> &lt; <i>n</i>, the first <i>s</i> distinct coordinates form a uniformly random set of that size. The mean wait for the next new coordinate is <i>n</i> / (<i>n</i> − <i>s</i>), including repeated reads. A particular set therefore has weight:</p>
-      <div class="drp-equation">
-        <math aria-label="one over n choose s times n over n minus s equals one over n minus one choose s"><mrow><mfrac><mn>1</mn><mrow><mo>(</mo><mfrac linethickness="0"><mi>n</mi><mi>s</mi></mfrac><mo>)</mo></mrow></mfrac><mo>·</mo><mfrac><mi>n</mi><mrow><mi>n</mi><mo>−</mo><mi>s</mi></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mrow><mo>(</mo><mfrac linethickness="0"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mi>s</mi></mfrac><mo>)</mo></mrow></mfrac></mrow></math>
-      </div>
-      <p>Count that waiting time only while recovery still fails. Sets containing <i>i</i> already recover it, so:</p>
-      <div class="drp-equation">
-        <math aria-label="a i of C equals the sum over coordinate sets S not containing i of d C of i S divided by n minus one choose the size of S"><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>(</mo><mi>C</mi><mo>)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>S</mi><mo>:</mo><mi>i</mi><mo>∉</mo><mi>S</mi></mrow></munder><mfrac><mrow><msub><mi>d</mi><mi>C</mi></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>S</mi><mo>)</mo></mrow><mrow><mo>(</mo><mfrac linethickness="0"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mrow><mo>|</mo><mi>S</mi><mo>|</mo></mrow></mfrac><mo>)</mo></mrow></mfrac></mrow></math>
-      </div>
-    </li>
-    <li>
-      <h3>Pair equal weights and add</h3>
-      <p>Complementary sets have the same weight: choosing <i>s</i> coordinates out of <i>n</i> − 1 gives as many choices as choosing <i>n</i> − 1 − <i>s</i>. Add the two expectations, pairing complementary sets. Step 1 turns each pair of failure indicators into 1.</p>
-      <p>For each size <i>s</i>, the number of sets cancels the denominator of their weight. Their total contribution is 1. There are <i>n</i> sizes, from 0 through <i>n</i> − 1. Therefore:</p>
-      <div class="drp-equation">
-        <math aria-label="a i of C plus a i of C dual equals n"><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>(</mo><mi>C</mi><mo>)</mo><mo>+</mo><msub><mi>a</mi><mi>i</mi></msub><mo>(</mo><msup><mi>C</mi><mo>⊥</mo></msup><mo>)</mo><mo>=</mo><mi>n</mi></mrow></math>
-      </div>
-    </li>
-  </ol>
-  <hr>
-  <p><strong>The conjecture follows:</strong> a code is recovery balanced when all coordinates have the same expected recovery time. Since every dual expectation is <i>n</i> minus the original one, <i>C</i> is recovery balanced if and only if <i>C</i><sup>⊥</sup> is.</p>
+<h1 id="drp-title">Why recovery balance survives duality</h1>
+<p>Let <i>C</i> be a linear code with <i>n</i> ≥ 1 coordinates, dimension <i>k</i>, and orthogonal dual <i>C</i><sup>⊥</sup>. Let <i>E</i> be the set of coordinate indices. We read indices independently and uniformly, with replacement: a repeated read still costs one read. Write <i>a</i><sub>i</sub>(<i>C</i>) for the expected number of reads needed to recover coordinate <i>i</i>.</p>
+<p>The proof connects two questions: what a set of coordinates tells us, and how long random reads take to collect that information. A coordinate that is always zero is known before any read.</p>
+<ol>
+<li><h3>Express failure to recover as one missing dimension</h3>
+<p>Choose a generator matrix with columns <i>g</i><sub>j</sub>. Define <i>r</i><sub>C</sub>(<i>S</i>) as the dimension of the span of the columns indexed by <i>S</i>. Observing <i>S</i> determines coordinate <i>i</i> exactly when <i>g</i><sub>i</sub> lies in that span.</p>
+<p>Adding one column increases the dimension by either zero or one. Therefore the following difference is 0 if recovery succeeds and 1 if it fails:</p><div class="drp-equation"><math aria-label="d C of i S equals r C of S union i minus r C of S"><mrow><msub><mi>d</mi><mi>C</mi></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>S</mi><mo>)</mo><mo>=</mo><msub><mi>r</mi><mi>C</mi></msub><mo>(</mo><mi>S</mi><mo>∪</mo><mo>{</mo><mi>i</mi><mo>}</mo><mo>)</mo><mo>−</mo><msub><mi>r</mi><mi>C</mi></msub><mo>(</mo><mi>S</mi><mo>)</mo></mrow></math></div><p>The same rank is the dimension of the projection of the code onto <i>S</i>, so it does not depend on which generator matrix we chose.</p></li>
+<li id="dual-rank"><h3>Derive the rank formula for the dual code</h3>
+<p>Fix a set <i>A</i> and let <i>B</i> = <i>E</i> ∖ <i>A</i>. Project <i>C</i><sup>⊥</sup> onto <i>A</i>. The vectors lost by this projection are precisely the dual vectors supported entirely on <i>B</i>.</p>
+<p>Such vectors are orthogonal to the projection of <i>C</i> onto <i>B</i>, so their space has dimension |<i>B</i>| − <i>r</i><sub>C</sub>(<i>B</i>). The whole dual code has dimension <i>n</i> − <i>k</i>. Subtracting the dimension of the kernel from the dimension of the domain gives the dimension of the image:</p>
+<p class="drp-equation"> <i>r</i><sub>C<sup>⊥</sup></sub>(<i>A</i>) = (<i>n</i> − <i>k</i>) − (|<i>B</i>| − <i>r</i><sub>C</sub>(<i>B</i>)).</p>
+<p>Since |<i>B</i>| = <i>n</i> − |<i>A</i>|, this simplifies to:</p><div class="drp-equation"><math aria-label="r C dual of A equals size of A minus k plus r C of E minus A"><mrow><msub><mi>r</mi><msup><mi>C</mi><mo>⊥</mo></msup></msub><mo>(</mo><mi>A</mi><mo>)</mo><mo>=</mo><mo>|</mo><mi>A</mi><mo>|</mo><mo>−</mo><mi>k</mi><mo>+</mo><msub><mi>r</mi><mi>C</mi></msub><mo>(</mo><mi>E</mi><mo>∖</mo><mi>A</mi><mo>)</mo></mrow></math></div></li>
+<li><h3>Apply that formula to complementary observations</h3>
+<p>Keep target <i>i</i> aside. Split the other coordinates into <i>S</i> and <i>U</i> = <i>E</i> ∖ (<i>S</i> ∪ {<i>i</i>}). Apply the dual-rank formula first to <i>U</i> ∪ {<i>i</i>} and then to <i>U</i>:</p>
+<div class="drp-equation"><div><i>r</i><sub>C<sup>⊥</sup></sub>(<i>U</i> ∪ {<i>i</i>}) = |<i>U</i>| + 1 − <i>k</i> + <i>r</i><sub>C</sub>(<i>S</i>),</div><div><i>r</i><sub>C<sup>⊥</sup></sub>(<i>U</i>) = |<i>U</i>| − <i>k</i> + <i>r</i><sub>C</sub>(<i>S</i> ∪ {<i>i</i>}).</div></div>
+<p>Subtract the second line from the first. The common terms cancel, leaving:</p><div class="drp-equation"><math aria-label="d C dual of i U equals one minus d C of i S"><mrow><msub><mi>d</mi><msup><mi>C</mi><mo>⊥</mo></msup></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>U</mi><mo>)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>d</mi><mi>C</mi></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>S</mi><mo>)</mo></mrow></math></div><p>Thus exactly one succeeds: recovery from <i>S</i> in <i>C</i>, or recovery from <i>U</i> in <i>C</i><sup>⊥</sup>. This is the algebraic reason for the complementary outcomes.</p></li>
+<li><h3>Account for the waiting time, including repeated reads</h3>
+<p>Imagine continuing to sample even after recovery. Let <i>S</i><sub>s</sub> be the set of the first <i>s</i> distinct indices seen, and <i>W</i><sub>s</sub> the number of further reads until the next new index. Repeated indices add no information, so recovery cannot change during those repeats.</p>
+<p>After <i>s</i> distinct indices, each read has probability (<i>n</i> − <i>s</i>)/<i>n</i> of finding a new one. Conditional on the entire history so far, the mean waiting time is <i>n</i>/(<i>n</i> − <i>s</i>).</p>
+<p>The recovery time <i>T</i><sub>i</sub> is the sum of <i>W</i><sub>s</sub> over precisely those stages at which recovery still fails. Equivalently:</p>
+<p class="drp-equation"><i>T</i><sub>i</sub> = ∑<sub>s=0,…,n−1</sub> <i>d</i><sub>C</sub>(<i>i</i>,<i>S</i><sub>s</sub>) <i>W</i><sub>s</sub>.</p>
+<p>For sets already containing <i>i</i>, the failure indicator is zero. The argument uses the conditional waiting-time mean; it does not assume independence between the failure indicator and the waiting time. The first read of <i>i</i> itself has mean <i>n</i> and always suffices, so the expected recovery time is finite.</p></li>
+<li><h3>Convert the random process into a finite weighted sum</h3>
+<p>By symmetry, <i>S</i><sub>s</sub> is uniform among all subsets of <i>E</i> of size <i>s</i>. A particular set therefore contributes its failure indicator times the weight</p><div class="drp-equation"><math aria-label="one over n choose s times n over n minus s equals one over n minus one choose s"><mrow><mfrac><mn>1</mn><mrow><mo>(</mo><mfrac linethickness="0"><mi>n</mi><mi>s</mi></mfrac><mo>)</mo></mrow></mfrac><mo>·</mo><mfrac><mi>n</mi><mrow><mi>n</mi><mo>−</mo><mi>s</mi></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mrow><mo>(</mo><mfrac linethickness="0"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mi>s</mi></mfrac><mo>)</mo></mrow></mfrac></mrow></math></div><p>Sets containing the target contribute zero. Taking expectations in the stage decomposition gives:</p><div class="drp-equation"><math aria-label="a i of C equals the sum over coordinate sets S not containing i of d C of i S divided by n minus one choose the size of S"><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>(</mo><mi>C</mi><mo>)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>S</mi><mo>:</mo><mi>i</mi><mo>∉</mo><mi>S</mi></mrow></munder><mfrac><mrow><msub><mi>d</mi><mi>C</mi></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>S</mi><mo>)</mo></mrow><mrow><mo>(</mo><mfrac linethickness="0"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mrow><mo>|</mo><mi>S</mi><mo>|</mo></mrow></mfrac><mo>)</mo></mrow></mfrac></mrow></math></div><p>The weight includes all repeated reads through the factor <i>n</i>/(<i>n</i> − <i>s</i>).</p></li>
+<li><h3>Pair complementary sets and evaluate the total</h3>
+<p>The map <i>S</i> ↦ <i>U</i> pairs every subset not containing <i>i</i> with its complement among the other <i>n</i> − 1 coordinates. Both sets have the same weight, because choosing <i>s</i> indices gives as many subsets as choosing <i>n</i> − 1 − <i>s</i>.</p>
+<p>Add the weighted sums for the code and its dual. Each paired numerator is <i>d</i><sub>C</sub>(<i>i</i>,<i>S</i>) + <i>d</i><sub>C<sup>⊥</sup></sub>(<i>i</i>,<i>U</i>) = 1, by the algebraic calculation above. For each size <i>s</i>, the number of subsets cancels the denominator of their weight, contributing exactly 1. There are <i>n</i> sizes, from 0 to <i>n</i> − 1:</p><div class="drp-equation"><math aria-label="a i of C plus a i of C dual equals n"><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>(</mo><mi>C</mi><mo>)</mo><mo>+</mo><msub><mi>a</mi><mi>i</mi></msub><mo>(</mo><msup><mi>C</mi><mo>⊥</mo></msup><mo>)</mo><mo>=</mo><mi>n</mi></mrow></math></div></li>
+</ol>
+<hr>
+<p><strong>The conjecture follows:</strong> a code is recovery balanced when all coordinates have the same expected recovery time. Every dual expectation equals <i>n</i> minus the original one. Hence the original profile is constant exactly when the dual profile is constant: <i>C</i> is recovery balanced if and only if <i>C</i><sup>⊥</sup> is.</p>
 </article>
 
 <section aria-labelledby="source-title">
