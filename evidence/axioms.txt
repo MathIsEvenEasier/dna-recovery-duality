@@ -1,0 +1,16 @@
+'DNA.mem_codeDual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.codeRecovers_iff_agreement' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.codeRecovers_iff_decoder' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.generatedCode_recovers_iff_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.code_complementary_recovery' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.codeExpectedReads_hasSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.codeExpectedReads_dual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.codeRecoveryBalanced_dual_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.self_dual_codeExpectedReads' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.code_word_failure_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DNA.codeExpectedReads_eq_count_series' depends on axioms: [propext, Classical.choice, Quot.sound]
+DNA.codeExpectedReads_dual.{u_1, u_2} {K : Type u_1} {α : Type u_2} [Field K] [Fintype α] [DecidableEq α] [Nonempty α]
+  (C : Submodule K (α → K)) (i : α) :
+  DNA.codeExpectedReads C i + DNA.codeExpectedReads (DNA.codeDual C) i = ↑(Fintype.card α)
+DNA.codeRecoveryBalanced_dual_iff.{u_1, u_2} {K : Type u_1} {α : Type u_2} [Field K] [Fintype α] [DecidableEq α]
+  [Nonempty α] (C : Submodule K (α → K)) : DNA.CodeRecoveryBalanced (DNA.codeDual C) ↔ DNA.CodeRecoveryBalanced C
