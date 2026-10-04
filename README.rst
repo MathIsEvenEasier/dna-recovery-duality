@@ -12,34 +12,45 @@ recovery balanced. This answers Conjecture 1 of Gruica, Bar-Lev, Ravagnani
 and Yaakobi, *A Combinatorial Perspective on Random Access Efficiency for
 DNA Storage*, under the stated sampling model.
 
-Proof in three steps: https://mathiseveneasier.github.io/dna-recovery-duality/
+Proof explanation: https://mathiseveneasier.github.io/dna-recovery-duality/
 
 Conjecture source: https://arxiv.org/html/2401.15722v3#S5.SS3
 
 The argument
 ------------
 
-1. Keep the target coordinate i aside and partition the other coordinates
-   into S and U. Exactly one of these two observations recovers the target:
-   S in C, or U in C^perp. If d is the failure indicator, linear duality gives
-   d_C(i,S) + d_Cperp(i,U) = 1.
+1. Recovery from a set S is equivalent to a generator column lying in the
+   span of the observed columns. The rank increment d_C(i,S) is therefore
+   the failure indicator, equal to zero or one.
 
-2. The expected recovery time is the sum of d_C(i,S)/choose(n-1,|S|)
-   over S not containing i. A particular set of s distinct indices occurs
-   with probability 1/choose(n,s), and the conditional mean wait for the
-   next new index is n/(n-s). Their product is 1/choose(n-1,s), including
-   the cost of repeated reads.
+2. Project the dual code onto A. Its kernel consists of dual vectors
+   supported on E minus A, of dimension |E minus A| - r_C(E minus A).
+   Rank-nullity gives r_Cperp(A) = |A| - dim(C) + r_C(E minus A).
 
-3. Complementary sets have equal weights. Pairing the two sums replaces
-   their failure indicators by 1. Each subset size contributes 1; the n
-   sizes from 0 to n-1 therefore give a_i(C) + a_i(C^perp) = n. One profile
-   is constant exactly when the other is constant.
+3. For complementary S and U excluding i, subtract this dual-rank formula
+   at U from the formula at U union {i}. The result is
+   d_Cperp(i,U) = 1 - d_C(i,S): exactly one recovery fails.
+
+4. Decompose the sampling process into stages with s distinct indices seen.
+   The conditional mean wait for the next new index is n/(n-s), counting
+   repeated reads. Count a stage only while recovery still fails.
+
+5. Each particular s-set occurs with probability 1/choose(n,s). Multiplying
+   by the conditional mean wait gives weight 1/choose(n-1,s). Thus the
+   expected recovery time is the sum of d_C(i,S)/choose(n-1,|S|) over S
+   not containing i. No independence between failure and waiting is assumed.
+
+6. Complementary sets have equal weights. Pair the expectations for C and
+   C^perp: each pair of failure indicators sums to one, and each subset size
+   contributes one. The n sizes give a_i(C) + a_i(C^perp) = n. A constant
+   recovery profile for one code is therefore equivalent to a constant
+   profile for the other.
 
 Read and check
 --------------
 
 * recovery-duality.tex: complete mathematical proof, model and references.
-* docs/index.html: the three-step explanation.
+* docs/index.html: the algebraic and probabilistic proof explanation.
 * lean/CodeResult.lean: the main code theorem and balance equivalence.
 * lean/CodeLinear.lean: actual orthogonal dual and complementary recovery.
 * lean/CodeGenerator.lean: equivalence with generator-column recovery.

@@ -2,10 +2,10 @@
   "description": "Public repository files; hashes check integrity, not theorem truth.",
   "files": {
     ".gitignore": "6d3a3fc3e6a1a85b78aafe9f0db21b53cde33f8326bf67ca45f9d4519a8caa0f",
-    "README.rst": "be929dd435023cdfddcf7b0798b8a453012ab9324692cdd41d4e12b021d2898c",
+    "README.rst": "b0db4c551f0a4c14095734691704f3aebdf440ada04c333c0520ada09abeca23",
     "REPRODUCE.txt": "e0e803b359457c828183a212aacb38371a60f80f67a69736b3d47bfda588b69c",
     "docs/.nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "docs/index.html": "7e88cd3d5cb630dad605a1b49856d43be4b706afd9e864ac9aed76a0d0b92fca",
+    "docs/index.html": "c68ee0431b6167a304dc17bb7e587843a37836d71b3e690d2993b70475acdda9",
     "evidence/axioms.txt": "85cc8013333c08abdf6bf0bab90874b14cd7247fabb28f15786f36ab37623d1f",
     "evidence/build.json": "b4ff47267126eaf3be966ec4c97391e3fdf0a0dddcd8626106d8ea0b06140802",
     "evidence/negative-control.json": "b94bd153102cd9c7bfc916d92790ce3b507136c1f04c5ca641ef8a060e65b04a",
