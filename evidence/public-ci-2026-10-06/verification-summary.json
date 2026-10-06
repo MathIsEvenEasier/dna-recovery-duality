@@ -1,0 +1,21 @@
+{
+  "status": "VERIFIED_PUBLIC_CI",
+  "repository": "dna-recovery-duality",
+  "run_url": "https://github.com/MathIsEvenEasier/dna-recovery-duality/actions/runs/37468514956",
+  "commit": "80e4dbf2251ec59a6b47e403fcb74ea5f2c70305",
+  "positive_modules": 13,
+  "negative_controls": 2,
+  "final_theorem": "DNA.codeRecoveryBalanced_dual_iff",
+  "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "source_hashes_match_current_checkout": true,
+  "files_sha256": {
+    "provenance.json": "3a06237d3fecb5610a7f783279589f9fb464c6923b73de5126878805873d6783",
+    "rebuild-record.json": "1905bea911b1f8d664be74c5b301342fd51f50137f0f4699f2a7108dd53187c0",
+    "github-run.json": "146c59e7a9566fbe185502388e00e0f3674970c9f7e46ccd836356cb6956e021",
+    "final-axioms.txt": "157f175caa1f392d5327cf7e4ad1dfd8a77577151558024be3d311f4bbf00010"
+  }
+}

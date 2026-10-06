@@ -1,5 +1,5 @@
 Recovery balance is preserved by duality
-=======================================
+========================================
 
 For every linear code C of length n >= 1, under independent uniform
 sampling of encoded coordinates with replacement, the expected numbers
@@ -133,8 +133,14 @@ Research inspired by @xamualexander, Dr. Samuel Allen Alexander. Still there.
 Public source build
 -------------------
 
-The manually dispatched Azure workflow compiles the displayed commit and
-prints the final theorem and its axioms. See PUBLIC-CI.rst for the resource
-limits, source provenance, logs and reproduction procedure.
+A public GitHub Actions build on 6 October 2026 rebuilt all
+13 positive modules from commit 80e4dbf2251ec59a6b47e403fcb74ea5f2c70305
+and rejected 2 deliberately invalid controls. The final theorem's
+printed axioms are propext, Classical.choice and Quot.sound.
 
-https://github.com/MathIsEvenEasier/dna-recovery-duality/actions/workflows/lean.yml
+https://github.com/MathIsEvenEasier/dna-recovery-duality/actions/runs/37468514956
+
+Permanent copies of the compiler records, exact source hashes, final axiom
+output and confirmed Azure cleanup are in evidence/public-ci-2026-10-06/.
+The proof-source hashes still match this checkout. See PUBLIC-CI.rst for
+the resource limits, trust boundary and reproduction procedure.

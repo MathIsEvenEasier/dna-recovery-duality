@@ -1,0 +1,67 @@
+{
+  "conclusion": "success",
+  "headSha": "80e4dbf2251ec59a6b47e403fcb74ea5f2c70305",
+  "jobs": [
+    {
+      "completedAt": "2026-10-06T14:06:56Z",
+      "conclusion": "success",
+      "databaseId": 112285580995,
+      "name": "verify",
+      "startedAt": "2026-10-06T14:01:57Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-06T14:01:59Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-06T14:01:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-06T14:02:01Z",
+          "conclusion": "success",
+          "name": "Check out the dispatched commit",
+          "number": 2,
+          "startedAt": "2026-10-06T14:01:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-06T14:06:15Z",
+          "conclusion": "success",
+          "name": "Rebuild proofs and print axioms",
+          "number": 3,
+          "startedAt": "2026-10-06T14:02:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-06T14:06:16Z",
+          "conclusion": "success",
+          "name": "Preserve compiler records",
+          "number": 4,
+          "startedAt": "2026-10-06T14:06:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-06T14:06:16Z",
+          "conclusion": "success",
+          "name": "Post Check out the dispatched commit",
+          "number": 8,
+          "startedAt": "2026-10-06T14:06:16Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-06T14:06:16Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 9,
+          "startedAt": "2026-10-06T14:06:16Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/MathIsEvenEasier/dna-recovery-duality/actions/runs/37468514956/job/112285580995"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/MathIsEvenEasier/dna-recovery-duality/actions/runs/37468514956"
+}

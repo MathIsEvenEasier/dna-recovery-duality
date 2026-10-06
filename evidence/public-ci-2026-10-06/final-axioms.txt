@@ -1,0 +1,3 @@
+'DNA.codeRecoveryBalanced_dual_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+DNA.codeRecoveryBalanced_dual_iff.{u_1, u_2} {K : Type u_1} {α : Type u_2} [Field K] [Fintype α] [DecidableEq α]
+  [Nonempty α] (C : Submodule K (α → K)) : DNA.CodeRecoveryBalanced (DNA.codeDual C) ↔ DNA.CodeRecoveryBalanced C

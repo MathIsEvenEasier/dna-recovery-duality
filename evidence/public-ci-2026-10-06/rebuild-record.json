@@ -1,0 +1,107 @@
+[
+  {
+    "module": "Sampling",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 5.474
+  },
+  {
+    "module": "Words",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 2.344
+  },
+  {
+    "module": "Occupancy",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 3.401
+  },
+  {
+    "module": "TailFormula",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 2.272
+  },
+  {
+    "module": "Pairing",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 2.373
+  },
+  {
+    "module": "MatroidDual",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 2.438
+  },
+  {
+    "module": "Result",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 2.457
+  },
+  {
+    "module": "Audit",
+    "exit_code": 0,
+    "log": "'DNA.avg_eq_uniform_words' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.hasSum_subset_formula' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.rank_dual' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.complementary_failure' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.expectedReads_dual' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.recoveryBalanced_dual_iff' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.self_dual_expectedReads' depends on axioms: [propext, Classical.choice, Quot.sound]\nDNA.expectedReads_dual.{u_1} {\u03b1 : Type u_1} [Fintype \u03b1] [DecidableEq \u03b1] [Nonempty \u03b1] (M : Matroid \u03b1)\n  (hE : M.E = Set.univ) (i : \u03b1) : DNA.expectedReads M i + DNA.expectedReads M\u2736 i = \u2191(Fintype.card \u03b1)\nDNA.recoveryBalanced_dual_iff.{u_1} {\u03b1 : Type u_1} [Fintype \u03b1] [DecidableEq \u03b1] [Nonempty \u03b1] (M : Matroid \u03b1)\n  (hE : M.E = Set.univ) : DNA.RecoveryBalanced M\u2736 \u2194 DNA.RecoveryBalanced M\n",
+    "expected_failure": false,
+    "seconds": 2.108
+  },
+  {
+    "module": "CodeLinear",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 2.637
+  },
+  {
+    "module": "CodeGenerator",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 2.185
+  },
+  {
+    "module": "CodeResult",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 2.357
+  },
+  {
+    "module": "CodeProbability",
+    "exit_code": 0,
+    "log": "",
+    "expected_failure": false,
+    "seconds": 2.289
+  },
+  {
+    "module": "CodeAudit",
+    "exit_code": 0,
+    "log": "'DNA.mem_codeDual' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.codeRecovers_iff_agreement' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.codeRecovers_iff_decoder' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.generatedCode_recovers_iff_span' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.code_complementary_recovery' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.codeExpectedReads_hasSum' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.codeExpectedReads_dual' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.codeRecoveryBalanced_dual_iff' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.self_dual_codeExpectedReads' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.code_word_failure_probability' depends on axioms: [propext, Classical.choice, Quot.sound]\n'DNA.codeExpectedReads_eq_count_series' depends on axioms: [propext, Classical.choice, Quot.sound]\nDNA.codeExpectedReads_dual.{u_1, u_2} {K : Type u_1} {\u03b1 : Type u_2} [Field K] [Fintype \u03b1] [DecidableEq \u03b1] [Nonempty \u03b1]\n  (C : Submodule K (\u03b1 \u2192 K)) (i : \u03b1) :\n  DNA.codeExpectedReads C i + DNA.codeExpectedReads (DNA.codeDual C) i = \u2191(Fintype.card \u03b1)\nDNA.codeRecoveryBalanced_dual_iff.{u_1, u_2} {K : Type u_1} {\u03b1 : Type u_2} [Field K] [Fintype \u03b1] [DecidableEq \u03b1]\n  [Nonempty \u03b1] (C : Submodule K (\u03b1 \u2192 K)) : DNA.CodeRecoveryBalanced (DNA.codeDual C) \u2194 DNA.CodeRecoveryBalanced C\n",
+    "expected_failure": false,
+    "seconds": 2.057
+  },
+  {
+    "module": "NegativeControl",
+    "exit_code": 1,
+    "log": "/home/proofci/dna-recovery-duality-60dfc0ca96bd425e/_work/_temp/mathlib/dna-rebuild-output/NegativeControl.lean:5:2: error: Type mismatch\n  True.intro\nhas type\n  True\nbut is expected to have type\n  False\n",
+    "expected_failure": true,
+    "seconds": 1.999
+  },
+  {
+    "module": "CodeNegativeControl",
+    "exit_code": 1,
+    "log": "/home/proofci/dna-recovery-duality-60dfc0ca96bd425e/_work/_temp/mathlib/dna-rebuild-output/CodeNegativeControl.lean:5:2: error: Type mismatch\n  True.intro\nhas type\n  True\nbut is expected to have type\n  False\n",
+    "expected_failure": true,
+    "seconds": 2.053
+  }
+]

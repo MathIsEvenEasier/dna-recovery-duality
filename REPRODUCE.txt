@@ -5,8 +5,10 @@ Two different checks
 python3 verify_packet.py checks the files against the recorded successful
 build, the expected negative-control failure and the axiom audit. It is
 a lightweight consistency check, not a proof checker or a fresh Lean run.
-The report and its hashes are evidence from the author; independent
-verification requires compiling the supplied Lean sources yourself.
+The original report and hashes are author-provided evidence. A subsequent
+public GitHub Actions source rebuild is linked in README.rst; its logs
+and final axiom output are preserved in evidence/public-ci-2026-10-06/.
+That rebuild is still not an independent human statement audit.
 
 Pinned versions
 ---------------
@@ -30,7 +32,8 @@ resource deletion. Do not interpret a timeout or interruption as success.
 
 The following commands describe the compiler environment inside that
 already provisioned worker. They do not provision, bound or clean up
-Azure resources. They have not been rerun while preparing this packet.
+Azure resources. The later public CI build uses these same pins and proof sources.
+See PUBLIC-CI.rst for its executable workflow and resource controls.
 
 Install Lean 4.34.0 so that lean and lake from that release are on PATH.
 Check lean --version before proceeding. From a fresh work directory:

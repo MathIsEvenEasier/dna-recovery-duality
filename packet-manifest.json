@@ -2,10 +2,10 @@
   "description": "Public repository files; hashes check integrity, not theorem truth.",
   "files": {
     ".gitignore": "fd92406ebd65b93c162a7d9358d04cf048eba19a4ae41ecedd1be043c1961dae",
-    "README.rst": "9dc4ffb43e00dbcdd5208c379cc0cd192411cb54502b23b05190927a37de8eef",
-    "REPRODUCE.txt": "e0e803b359457c828183a212aacb38371a60f80f67a69736b3d47bfda588b69c",
+    "README.rst": "e94606f43eee3ca99d20008138df5501a4823d61abe463efafd5383039980fc9",
+    "REPRODUCE.txt": "c8f4b82c0c07ce5c5433ee29b238df136b350ad1685b6d73ab9573d48f762c81",
     "docs/.nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "docs/index.html": "c68ee0431b6167a304dc17bb7e587843a37836d71b3e690d2993b70475acdda9",
+    "docs/index.html": "7cd80bde12f9707da38427a030d726cc48ae2bcb20d36a6fb18c20194af088bc",
     "evidence/axioms.txt": "85cc8013333c08abdf6bf0bab90874b14cd7247fabb28f15786f36ab37623d1f",
     "evidence/build.json": "b4ff47267126eaf3be966ec4c97391e3fdf0a0dddcd8626106d8ea0b06140802",
     "evidence/negative-control.json": "b94bd153102cd9c7bfc916d92790ce3b507136c1f04c5ca641ef8a060e65b04a",
@@ -32,6 +32,12 @@
     "ci/build.py": "4c1caae5751577c4e0c011b769546231436a3d6102ffe4fd5b400e4e27563639",
     "ci/lean-release.json": "7c497a00294680de4be9334b43b3abd648b980cd012bff655f0bdca3a9a3f984",
     ".github/workflows/lean.yml": "f72dc5c755fcc368f11d4031fad5f06d1616d496c0c8910bfe07ec15ca16d6ac",
-    "PUBLIC-CI.rst": "3f89c22efadbd477a0657331a4288afbb7c1dd8405dc106691d10f04fd04bc40"
+    "PUBLIC-CI.rst": "3f89c22efadbd477a0657331a4288afbb7c1dd8405dc106691d10f04fd04bc40",
+    "evidence/public-ci-2026-10-06/provenance.json": "3a06237d3fecb5610a7f783279589f9fb464c6923b73de5126878805873d6783",
+    "evidence/public-ci-2026-10-06/rebuild-record.json": "1905bea911b1f8d664be74c5b301342fd51f50137f0f4699f2a7108dd53187c0",
+    "evidence/public-ci-2026-10-06/verification-summary.json": "82de6ca526cae379fbee1463e2fab2828071b4d9366ffc593f9c11979e58443d",
+    "evidence/public-ci-2026-10-06/cleanup-report.json": "6013786c350922171096097a036156928134b86a836aeb2a86d588539a70015e",
+    "evidence/public-ci-2026-10-06/github-run.json": "146c59e7a9566fbe185502388e00e0f3674970c9f7e46ccd836356cb6956e021",
+    "evidence/public-ci-2026-10-06/final-axioms.txt": "157f175caa1f392d5327cf7e4ad1dfd8a77577151558024be3d311f4bbf00010"
   }
 }
