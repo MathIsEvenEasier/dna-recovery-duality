@@ -16,6 +16,11 @@ Proof explanation: https://mathiseveneasier.github.io/dna-recovery-duality/
 
 Conjecture source: https://arxiv.org/html/2401.15722v3#S5.SS3
 
+The conjecture first appeared in arXiv v2 (30 September 2024). The link
+above uses v3 (24 September 2025); these are version dates, not different
+conjectures. The paper was subsequently published in IEEE Transactions
+on Information Theory: https://doi.org/10.1109/TIT.2025.3623202.
+
 The argument
 ------------
 
@@ -90,8 +95,10 @@ The written EXIT and Shapley interpretations and the alternative zero-time
 convention are outside the Lean certificate. The recorded verification
 uses the standard Lean kernel and pinned upstream mathlib cache artifacts;
 no independent kernel implementation audit was performed for this result.
-The formal statement has not received an independent human audit. This
-repository is a research announcement, without external peer review.
+VibeMathed lists the result as Resolved, Lean-checked. Its verification
+label remains "statement unaudited": a full independent human audit of
+the formal statement is still open. This repository is a research
+announcement, not a peer-reviewed publication.
 
 Model and use
 -------------
@@ -120,3 +127,12 @@ and Renes (2017/2018):
 
 Prepared by MathIsEvenEasier with OpenAI Codex (GPT-6 Astra).
 Research inspired by @xamualexander, Dr. Samuel Allen Alexander. Still there.
+
+Public source build
+-------------------
+
+The manually dispatched Azure workflow compiles the displayed commit and
+prints the final theorem and its axioms. See PUBLIC-CI.rst for the resource
+limits, source provenance, logs and reproduction procedure.
+
+https://github.com/MathIsEvenEasier/dna-recovery-duality/actions/workflows/lean.yml

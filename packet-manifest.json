@@ -1,8 +1,8 @@
 {
   "description": "Public repository files; hashes check integrity, not theorem truth.",
   "files": {
-    ".gitignore": "6d3a3fc3e6a1a85b78aafe9f0db21b53cde33f8326bf67ca45f9d4519a8caa0f",
-    "README.rst": "b0db4c551f0a4c14095734691704f3aebdf440ada04c333c0520ada09abeca23",
+    ".gitignore": "fd92406ebd65b93c162a7d9358d04cf048eba19a4ae41ecedd1be043c1961dae",
+    "README.rst": "1ef051a1cbbf6e1c8c77f01f46afbd7f52fa013bdf7b1ab497f90115257fda48",
     "REPRODUCE.txt": "e0e803b359457c828183a212aacb38371a60f80f67a69736b3d47bfda588b69c",
     "docs/.nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/index.html": "c68ee0431b6167a304dc17bb7e587843a37836d71b3e690d2993b70475acdda9",
@@ -28,6 +28,10 @@
     "pins.json": "32d95e8ecbc5236c688c682346ee36faaee386b5645ac15ba471d0487044ac62",
     "recovery-duality.tex": "0dcf96f9c87fbc53e5f868b89e0c34d998f6006aaa593734ceb298e9304bd17e",
     "verification-code-azure.json": "094673ab4031ba932c2e9a4af2e6bb4dea576da711bcda38909764b122c58a79",
-    "verify_packet.py": "3e381f8db49717faf28e23d9a83cae9d24fcd1cbff2a6a3873342b0e97795332"
+    "verify_packet.py": "3e381f8db49717faf28e23d9a83cae9d24fcd1cbff2a6a3873342b0e97795332",
+    "ci/build.py": "4c1caae5751577c4e0c011b769546231436a3d6102ffe4fd5b400e4e27563639",
+    "ci/lean-release.json": "7c497a00294680de4be9334b43b3abd648b980cd012bff655f0bdca3a9a3f984",
+    ".github/workflows/lean.yml": "f72dc5c755fcc368f11d4031fad5f06d1616d496c0c8910bfe07ec15ca16d6ac",
+    "PUBLIC-CI.rst": "3f89c22efadbd477a0657331a4288afbb7c1dd8405dc106691d10f04fd04bc40"
   }
 }
