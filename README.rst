@@ -16,10 +16,12 @@ Proof explanation: https://mathiseveneasier.github.io/dna-recovery-duality/
 
 Conjecture source: https://arxiv.org/html/2401.15722v3#S5.SS3
 
-The conjecture first appeared in arXiv v2 (30 September 2024). The link
-above uses v3 (24 September 2025); these are version dates, not different
-conjectures. The paper was subsequently published in IEEE Transactions
-on Information Theory: https://doi.org/10.1109/TIT.2025.3623202.
+The conjecture is already stated in the discussion of arXiv v1
+(28 January 2024, Section VII): https://arxiv.org/html/2401.15722v1.
+It is numbered Conjecture 1 in v2 (30 September 2024). The main source
+link above uses v3 (24 September 2025). The paper was subsequently
+published in IEEE Transactions on Information Theory:
+https://doi.org/10.1109/TIT.2025.3623202.
 
 The argument
 ------------

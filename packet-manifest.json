@@ -2,7 +2,7 @@
   "description": "Public repository files; hashes check integrity, not theorem truth.",
   "files": {
     ".gitignore": "fd92406ebd65b93c162a7d9358d04cf048eba19a4ae41ecedd1be043c1961dae",
-    "README.rst": "1ef051a1cbbf6e1c8c77f01f46afbd7f52fa013bdf7b1ab497f90115257fda48",
+    "README.rst": "9dc4ffb43e00dbcdd5208c379cc0cd192411cb54502b23b05190927a37de8eef",
     "REPRODUCE.txt": "e0e803b359457c828183a212aacb38371a60f80f67a69736b3d47bfda588b69c",
     "docs/.nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/index.html": "c68ee0431b6167a304dc17bb7e587843a37836d71b3e690d2993b70475acdda9",
