@@ -23,7 +23,7 @@
 \begin{abstract}
 For a linear code of length $n$, let $a_i$ be the expected number of independent,
 uniform reads with replacement needed to recover encoded coordinate $i$.
-We give a self-contained proof that the corresponding expectation for the
+We prove that the corresponding expectation for the
 orthogonal dual code is $n-a_i$. In particular, recovery balance is preserved
 by duality, answering Conjecture~1 of Gruica, Bar-Lev, Ravagnani and Yaakobi
 under the stated sampling model. The proof also identifies $a_i/n$ with the
@@ -230,7 +230,7 @@ ten Brink prove a duality property in \cite[Section IV-E, Theorem 4]{AKB}.
 Renes gives a broader channel-duality framework in
 \cite[Section 4.5, Theorem 4 and its coordinatewise proof]{Renes}.
 Equation~\eqref{eq:exit-dual} is this classical phenomenon in our failure
-probability notation, and is not claimed as a new duality theorem.
+probability notation.
 Equation~\eqref{eq:exit-area} explicitly connects it to the uniform-read
 model of the recovery-balance conjecture. Together with
 \eqref{eq:greedy}, it identifies three quantities:
@@ -405,8 +405,7 @@ is needed only to interpret the result as a statement about linear codes.
 Within the uniform error-free model, the theorem transfers a computed
 recovery profile to the dual and reverses the ordering of easy and difficult
 coordinates. The greedy interpretation supplies a bounded-work unbiased
-estimator per permutation. Neither statement by itself designs a better
-physical DNA storage system.
+estimator per permutation.
 
 \section{Relation to earlier work}
 Notation~1 and Definition~2 of \cite{GBRY} specify the encoded-coordinate
@@ -422,18 +421,14 @@ screened: \cite{Bodur} on expectations and distributions for random access,
 and \cite{WY}, including its August 2026 revision, on algorithms,
 constructions and bounds.
 
-The objective of this note is to resolve the stated conjecture with a
-checkable proof using available mathematics. The earlier results provide
-the tools and context for that resolution. The accompanying Lean certificate
-checks the code theorem in the precise model described next. Literature
-search records are preserved in \texttt{publication-review.json}; establishing
-publication priority is not an objective or a condition for completion.
+The Lean certificate checks the code theorem in the model described below.
+Literature search records are preserved in \texttt{publication-review.json}.
+No priority claim is made.
 
 \section{What Lean has checked}
 The code theorem quantifies over an arbitrary field $K$, a finite nonempty
-coordinate type $E$, and an arbitrary subspace $C\leq K^E$. Thus it applies
-to every finite field and every code length, without restricting the code
-family or enumerating examples. Its formal orthogonal dual satisfies
+coordinate type $E$, and an arbitrary subspace $C\leq K^E$.
+Its formal orthogonal dual satisfies
 \[
  y\in C^\perp\quad\Longleftrightarrow\quad
            \sum_{j\in E}x_jy_j=0\quad\text{for every }x\in C.
@@ -511,8 +506,8 @@ and \texttt{Quot.sound}. The proof uses no custom axioms, admitted goals,
 \texttt{unsafe} declarations or \texttt{native\_decide}. A deliberately
 ill-typed proof of \texttt{False} was rejected in a separate control run.
 This is a standard Lean kernel check with pinned upstream mathlib cache
-artifacts, not an independent implementation of the kernel. Substantial
-compilations run only in Azure, with a 12 GiB process-group memory cap,
+artifacts; no independent kernel implementation was used.
+The recorded Azure build had a 12 GiB process-group memory cap,
 a maximum 35-minute worker lifetime, 90-second module timeouts and an
 independent cloud deletion guard. The code-certificate job is
 \texttt{83cb03dc071a4251}; its build, axiom audit, negative control, source
@@ -533,8 +528,7 @@ an infinite product probability space and a hitting-time random variable
 on that space. The written sampling argument supplies the usual stochastic
 interpretation. The Shapley and EXIT interpretations, worked numerical examples and
 alternative convention requiring a read even for a known zero remain
-outside the present Lean certificate. The linear-code duality and
-recovery-to-column-span bridges are now included in the certificate.
+outside the Lean certificate.
 
 \begin{thebibliography}{9}
 \bibitem{GBRY}

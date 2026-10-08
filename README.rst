@@ -99,8 +99,7 @@ uses the standard Lean kernel and pinned upstream mathlib cache artifacts;
 no independent kernel implementation audit was performed for this result.
 VibeMathed lists the result as Resolved, Lean-checked. Its verification
 label remains "statement unaudited": a full independent human audit of
-the formal statement is still open. This repository is a research
-announcement, not a peer-reviewed publication.
+the formal statement is still open. This research announcement has not been peer reviewed.
 
 Model and use
 -------------
@@ -110,7 +109,7 @@ requires no reads. The note separately handles the convention requiring a
 first read even for a known zero; the balance equivalence survives, while
 the coordinatewise sum needs a correction at such coordinates.
 
-A recovery profile for C immediately gives the entire profile for C^perp.
+A recovery profile for C determines the profile for C^perp by subtraction from n.
 Balance transfers, coordinate ordering reverses, and an exactly self-dual
 code has expected recovery time n/2 at every coordinate. These statements
 apply to the uniform error-free read model; they do not assert a physical

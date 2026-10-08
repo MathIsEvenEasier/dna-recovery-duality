@@ -35,7 +35,7 @@ footer { margin-top:32px; }
 <article id="dna-recovery-proof" aria-labelledby="drp-title">
 <h1 id="drp-title">Why recovery balance survives duality</h1>
 <p>Let <i>C</i> be a linear code with <i>n</i> ≥ 1 coordinates, dimension <i>k</i>, and orthogonal dual <i>C</i><sup>⊥</sup>. Let <i>E</i> be the set of coordinate indices. We read indices independently and uniformly, with replacement: a repeated read still costs one read. Write <i>a</i><sub>i</sub>(<i>C</i>) for the expected number of reads needed to recover coordinate <i>i</i>.</p>
-<p>The proof connects two questions: what a set of coordinates tells us, and how long random reads take to collect that information. A coordinate that is always zero is known before any read.</p>
+<p>We first characterize recovery from a set of coordinates, then calculate the expected number of reads until recovery. A coordinate that is always zero is known before any read.</p>
 <ol>
 <li><h3>Express failure to recover as one missing dimension</h3>
 <p>Choose a generator matrix with columns <i>g</i><sub>j</sub>. Define <i>r</i><sub>C</sub>(<i>S</i>) as the dimension of the span of the columns indexed by <i>S</i>. Observing <i>S</i> determines coordinate <i>i</i> exactly when <i>g</i><sub>i</sub> lies in that span.</p>
@@ -48,7 +48,7 @@ footer { margin-top:32px; }
 <li><h3>Apply that formula to complementary observations</h3>
 <p>Keep target <i>i</i> aside. Split the other coordinates into <i>S</i> and <i>U</i> = <i>E</i> ∖ (<i>S</i> ∪ {<i>i</i>}). Apply the dual-rank formula first to <i>U</i> ∪ {<i>i</i>} and then to <i>U</i>:</p>
 <div class="drp-equation"><div><i>r</i><sub>C<sup>⊥</sup></sub>(<i>U</i> ∪ {<i>i</i>}) = |<i>U</i>| + 1 − <i>k</i> + <i>r</i><sub>C</sub>(<i>S</i>),</div><div><i>r</i><sub>C<sup>⊥</sup></sub>(<i>U</i>) = |<i>U</i>| − <i>k</i> + <i>r</i><sub>C</sub>(<i>S</i> ∪ {<i>i</i>}).</div></div>
-<p>Subtract the second line from the first. The common terms cancel, leaving:</p><div class="drp-equation"><math aria-label="d C dual of i U equals one minus d C of i S"><mrow><msub><mi>d</mi><msup><mi>C</mi><mo>⊥</mo></msup></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>U</mi><mo>)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>d</mi><mi>C</mi></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>S</mi><mo>)</mo></mrow></math></div><p>Thus exactly one succeeds: recovery from <i>S</i> in <i>C</i>, or recovery from <i>U</i> in <i>C</i><sup>⊥</sup>. This is the algebraic reason for the complementary outcomes.</p></li>
+<p>Subtract the second line from the first. The common terms cancel, leaving:</p><div class="drp-equation"><math aria-label="d C dual of i U equals one minus d C of i S"><mrow><msub><mi>d</mi><msup><mi>C</mi><mo>⊥</mo></msup></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>U</mi><mo>)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>d</mi><mi>C</mi></msub><mo>(</mo><mi>i</mi><mo>,</mo><mi>S</mi><mo>)</mo></mrow></math></div><p>Thus exactly one succeeds: recovery from <i>S</i> in <i>C</i>, or recovery from <i>U</i> in <i>C</i><sup>⊥</sup>. </p></li>
 <li><h3>Account for the waiting time, including repeated reads</h3>
 <p>Imagine continuing to sample even after recovery. Let <i>S</i><sub>s</sub> be the set of the first <i>s</i> distinct indices seen, and <i>W</i><sub>s</sub> the number of further reads until the next new index. Repeated indices add no information, so recovery cannot change during those repeats.</p>
 <p>After <i>s</i> distinct indices, each read has probability (<i>n</i> − <i>s</i>)/<i>n</i> of finding a new one. Conditional on the entire history so far, the mean waiting time is <i>n</i>/(<i>n</i> − <i>s</i>).</p>
@@ -73,7 +73,7 @@ footer { margin-top:32px; }
 <section aria-labelledby="check-title">
 <h2 id="check-title">Verification</h2>
 <p><a href="https://github.com/MathIsEvenEasier/dna-recovery-duality/actions/runs/37468514956">Public Lean build and final axiom output</a>. The run identifies the exact source commit and provides downloadable compiler records.</p>
-<p>The code theorem and exact-word tail-sum model passed Lean 4.34.0 checking in Azure. The certificate uses only the standard axioms propext, Classical.choice and Quot.sound. VibeMathed lists the result as Resolved, Lean-checked, statement unaudited. A full independent human audit of the formal statement remains open. The repository documents the precise scope and includes the recorded evidence and pinned sources.</p>
+<p>The code theorem and exact-word tail-sum model passed Lean 4.34.0 checking in Azure. The certificate uses only the standard axioms propext, Classical.choice and Quot.sound. VibeMathed lists the result as Resolved, Lean-checked, statement unaudited. A full independent human audit of the formal statement remains open. The repository gives the formal definitions, compiler records and pinned sources.</p>
 </section>
 </main>
 <footer>
