@@ -26,7 +26,7 @@
     "lean/Words.lean": "e9e225514a2b3e496e942a268311649f65145c38d90c6e47d54dc8a7597d553e",
     "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
     "pins.json": "32d95e8ecbc5236c688c682346ee36faaee386b5645ac15ba471d0487044ac62",
-    "recovery-duality.tex": "e9415299ea1392d2f1f52c131f0ac8cc815781396ae099bb80f9f1846b80f689",
+    "recovery-duality.tex": "dd47fc1a99a7bbfca2cc074335e6c822bcba24bcbcc7fc9f9454ab4fcde0809d",
     "verification-code-azure.json": "094673ab4031ba932c2e9a4af2e6bb4dea576da711bcda38909764b122c58a79",
     "verify_packet.py": "3e381f8db49717faf28e23d9a83cae9d24fcd1cbff2a6a3873342b0e97795332",
     "ci/build.py": "4c1caae5751577c4e0c011b769546231436a3d6102ffe4fd5b400e4e27563639",

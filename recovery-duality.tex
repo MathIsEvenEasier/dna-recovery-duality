@@ -17,7 +17,7 @@
 \newcommand{\ind}{\mathbf 1}
 \title{Coordinatewise duality for random-access recovery times}
 \author{MathIsEvenEasier\\\small Prepared with OpenAI Codex (GPT-6 Astra)}
-\date{October 4, 2026}
+\date{4 October 2026; exposition revised 9 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -32,14 +32,6 @@ ordering, equivalently the Shapley value of the column-rank function.
 We also show that $a_i/n$ is the area under the coordinate's erasure-channel
 EXIT function, relating the result to classical EXIT duality.
 \end{abstract}
-\noindent\textbf{Status.} A Lean certificate verifies coordinatewise duality
-and recovery-balance equivalence directly for arbitrary linear codes, using
-the convergent tail sum of exact uniform read-word probabilities. It also
-checks that the recovery definition agrees with the generator-column span
-criterion. Zero coordinates are recovered at time zero. There has been no
-external peer review. The proof uses established linear algebra and
-sampling identities; its connection to classical EXIT duality is explained
-and attributed below.
 
 \section{The model and the result}
 Let $E=\{1,\ldots,n\}$, where $n\geq1$, and let $C\leq\F_q^n$ be a linear
@@ -76,6 +68,15 @@ For every $C\leq\F_q^n$ and every $i\in E$,
 Consequently, $C$ is recovery balanced if and only if $C^\perp$ is recovery
 balanced.
 \end{theorem}
+
+The proof pairs an observed set for $C$ with its complement, excluding
+the target coordinate, for $C^\perp$. Exactly one of the two sets fails
+to recover that coordinate. To use this fact for repeated random reads,
+we first express the expected read count as a weighted sum over observed
+sets. Complementary sets have equal weights, so their contributions add
+to $n$. The sampling and rank arguments below prove these assertions;
+the later EXIT and greedy-basis sections give interpretations of the same
+identity.
 
 \section{A finite formula for an infinite sampling process}
 For $S\subseteq E\setminus\{i\}$, set
@@ -425,7 +426,17 @@ The Lean certificate checks the code theorem in the model described below.
 Literature search records are preserved in \texttt{publication-review.json}.
 No priority claim is made.
 
-\section{What Lean has checked}
+\appendix
+\section{Formal statement and verification}
+\noindent\textbf{Status.} A Lean certificate verifies coordinatewise duality
+and recovery-balance equivalence directly for arbitrary linear codes, using
+the convergent tail sum of exact uniform read-word probabilities. It also
+checks that the recovery definition agrees with the generator-column span
+criterion. Zero coordinates are recovered at time zero. There has been no
+external peer review. The proof uses established linear algebra and
+sampling identities; its connection to classical EXIT duality is explained
+and attributed below.
+
 The code theorem quantifies over an arbitrary field $K$, a finite nonempty
 coordinate type $E$, and an arbitrary subspace $C\leq K^E$.
 Its formal orthogonal dual satisfies
